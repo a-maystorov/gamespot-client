@@ -19,10 +19,15 @@ function App() {
     setGames(gamesFromDb);
   };
 
+  const removeGame = async (id: number) => {
+    // await GameService.removeGame(id);
+    setGames(games.filter((game) => game._id !== id));
+  };
+
   return (
     <main className="container">
       {isLoading && <p>Loading...</p>}
-      <GameList games={games} />
+      <GameList games={games} onRemoveGame={removeGame} />
     </main>
   );
 }
