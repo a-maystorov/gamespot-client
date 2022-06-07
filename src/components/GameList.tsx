@@ -1,18 +1,28 @@
+import { useState } from 'react';
 import Game from '../models/Game';
+
+import Pagination from './common/Pagination';
+import paginate from '../utils/paginate';
 
 interface GameListProps {
   games: Game[];
   onRemoveGame: (id: number) => void;
 }
 
-function GameList({ games, onRemoveGame }: GameListProps) {
-  const { length: gameCount } = games;
+function GameList({ games: allGames, onRemoveGame }: GameListProps) {
+  const pageSize = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+  const changePage = (page: number) => setCurrentPage(page);
 
-  if (gameCount === 0) return <p>There are no games in the database.</p>;
+  const { length: gamesCount } = allGames;
+
+  if (gamesCount === 0) return <p>There are no games in the database.</p>;
+
+  const games = paginate(allGames, currentPage, pageSize);
 
   return (
     <>
-      <p>Showing {gameCount} games in the database.</p>
+      <p>Showing {gamesCount} games in the database.</p>
       <table className="table">
         <thead className="table-dark">
           <tr>
@@ -41,6 +51,13 @@ function GameList({ games, onRemoveGame }: GameListProps) {
           ))}
         </tbody>
       </table>
+
+      <Pagination
+        itemsCount={gamesCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={changePage}
+      />
     </>
   );
 }
