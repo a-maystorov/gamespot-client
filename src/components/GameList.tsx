@@ -27,9 +27,14 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
 
   const selectGenre = (genre: Genre) => {
     setSelectedGenre(genre);
+    setCurrentPage(1);
   };
 
-  const games = paginate(allGames, currentPage, pageSize);
+  const filteredGames =
+    selectedGenre && selectedGenre._id !== 'allGenresId'
+      ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
+      : allGames;
+  const games = paginate(filteredGames, currentPage, pageSize);
 
   return (
     <div className="row">
@@ -41,7 +46,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         />
       </div>
       <div className="col">
-        <p>Showing {gamesCount} games in the database.</p>
+        <p>Showing {filteredGames.length} games in the database.</p>
         <table className="table">
           <thead className="table-dark">
             <tr>
@@ -72,7 +77,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         </table>
 
         <Pagination
-          itemsCount={gamesCount}
+          itemsCount={filteredGames.length}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={changePage}

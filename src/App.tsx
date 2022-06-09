@@ -33,10 +33,12 @@ function App() {
   };
 
   const loadGenres = async () => {
+    const allGenres: Genre = { _id: 'allGenresId', name: 'All Genres' };
     setIsLoading(true);
     const genresFromDb = await GenreService.getGenres();
     setIsLoading(false);
-    setGenres(genresFromDb);
+    const genres = [allGenres, ...genresFromDb];
+    setGenres(genres);
   };
 
   return (
