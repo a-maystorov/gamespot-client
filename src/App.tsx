@@ -27,7 +27,7 @@ function App() {
     setGames(gamesFromDb);
   };
 
-  const removeGame = async (id: number) => {
+  const removeGame = async (id: string) => {
     // await GameService.removeGame(id);
     setGames(games.filter((game) => game._id !== id));
   };
