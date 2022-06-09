@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import _ from 'lodash';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
@@ -15,12 +16,22 @@ interface GameListProps {
   genres: Genre[];
 }
 
+interface SortCol {
+  path: string;
+  order: boolean | 'asc' | 'desc';
+}
+
+const pageSize = 3;
+
 function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<Genre>();
+  const [sortColumn, setSortColumn] = useState<SortCol>({
+    path: 'title',
+    order: 'asc',
+  });
 
   const { length: gamesCount } = allGames;
-  const pageSize = 3;
 
   if (gamesCount === 0) return <p>There are no games in the database.</p>;
 
@@ -32,10 +43,29 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   };
 
   const filteredGames =
-    selectedGenre && selectedGenre._id !== 'allGenresId'
+    selectedGenre && selectedGenre._id
       ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
       : allGames;
-  const games = paginate(filteredGames, currentPage, pageSize);
+
+  const sortedGames = _.orderBy(
+    filteredGames,
+    [sortColumn.path],
+    [sortColumn.order]
+  );
+
+  const games = paginate(sortedGames, currentPage, pageSize);
+
+  const sort = (path: string) => {
+    const sortCol = { ...sortColumn };
+    if (sortCol.path === path)
+      sortCol.order = sortCol.order === 'asc' ? 'desc' : 'asc';
+    else {
+      sortCol.path = path;
+      sortCol.order = 'asc';
+    }
+    setSortColumn(sortCol);
+    console.log(sortCol, '===');
+  };
 
   return (
     <div className="row">
@@ -48,7 +78,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
       </div>
       <div className="col">
         <p>Showing {filteredGames.length} games in the database.</p>
-        <GamesTable games={games} onRemoveGame={onRemoveGame} />
+        <GamesTable games={games} onRemoveGame={onRemoveGame} onSort={sort} />
         <Pagination
           itemsCount={filteredGames.length}
           pageSize={pageSize}

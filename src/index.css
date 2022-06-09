@@ -13,8 +13,12 @@ code {
     monospace;
 }
 
-/* Bootstrap modifications */
+/* Util */
+.clickable {
+  cursor: pointer;
+}
 
+/* Bootstrap modifications */
 .page-link:focus {
   box-shadow: none;
 }

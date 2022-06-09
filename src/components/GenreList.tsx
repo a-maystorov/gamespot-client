@@ -14,8 +14,8 @@ function GenreList({ genres, onGenreSelect, selectedGenre }: GenreListProps) {
           key={genre._id}
           className={
             genre === selectedGenre
-              ? 'list-group-item active'
-              : 'list-group-item'
+              ? 'list-group-item clickable active'
+              : 'list-group-item clickable'
           }
           onClick={() => onGenreSelect(genre)}>
           {genre.name}

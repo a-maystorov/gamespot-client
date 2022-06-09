@@ -3,18 +3,27 @@ import Game from '../models/Game';
 interface GamesTableProps {
   games: Game[];
   onRemoveGame: (id: string) => void;
+  onSort: (path: string) => void;
 }
 
-function GamesTable({ games, onRemoveGame }: GamesTableProps) {
+function GamesTable({ games, onRemoveGame, onSort }: GamesTableProps) {
   return (
     <table className="table">
       <thead className="table-dark">
         <tr>
-          <th>Title</th>
-          <th>Genre</th>
-          <th>Stock</th>
-          <th>Rate</th>
-          <th></th>
+          <th onClick={() => onSort('title')} className="clickable">
+            Title
+          </th>
+          <th onClick={() => onSort('genre.name')} className="clickable">
+            Genre
+          </th>
+          <th onClick={() => onSort('numberInStock')} className="clickable">
+            Stock
+          </th>
+          <th onClick={() => onSort('dailyRentalRate')} className="clickable">
+            Rate
+          </th>
+          <th />
         </tr>
       </thead>
       <tbody>
