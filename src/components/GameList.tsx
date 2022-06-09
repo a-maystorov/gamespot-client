@@ -16,21 +16,29 @@ interface GameListProps {
 
 function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedGenre, setSelectedGenre] = useState<Genre>();
 
   const { length: gamesCount } = allGames;
+  const pageSize = 3;
 
   if (gamesCount === 0) return <p>There are no games in the database.</p>;
 
-  const pageSize = 3;
-
   const changePage = (page: number) => setCurrentPage(page);
+
+  const selectGenre = (genre: Genre) => {
+    setSelectedGenre(genre);
+  };
 
   const games = paginate(allGames, currentPage, pageSize);
 
   return (
     <div className="row">
       <div className="col-2">
-        <ListGroup genres={genres} />
+        <ListGroup
+          genres={genres}
+          onGenreSelect={selectGenre}
+          selectedGenre={selectedGenre!}
+        />
       </div>
       <div className="col">
         <p>Showing {gamesCount} games in the database.</p>

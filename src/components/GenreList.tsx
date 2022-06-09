@@ -1,17 +1,12 @@
-import { useState } from 'react';
 import Genre from '../models/Genre';
 
 interface GenreListProps {
   genres: Genre[];
+  onGenreSelect: (genre: Genre) => void;
+  selectedGenre: Genre;
 }
 
-function GenreList({ genres }: GenreListProps) {
-  const [selectedGenre, setSelectedGenre] = useState<Genre>();
-
-  const selectGenre = (genre: Genre) => {
-    setSelectedGenre(genre);
-  };
-
+function GenreList({ genres, onGenreSelect, selectedGenre }: GenreListProps) {
   return (
     <ul className="list-group">
       {genres.map((genre) => (
@@ -22,7 +17,7 @@ function GenreList({ genres }: GenreListProps) {
               ? 'list-group-item active'
               : 'list-group-item'
           }
-          onClick={() => selectGenre(genre)}>
+          onClick={() => onGenreSelect(genre)}>
           {genre.name}
         </li>
       ))}
