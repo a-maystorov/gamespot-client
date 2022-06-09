@@ -12,3 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Bootstrap modifications */
+
+.page-link:focus {
+  box-shadow: none;
+}
