@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
+import SortCol from '../models/SortCol';
 
 import Pagination from './common/Pagination';
 import paginate from '../utils/paginate';
@@ -14,11 +15,6 @@ interface GameListProps {
   games: Game[];
   onRemoveGame: (id: string) => void;
   genres: Genre[];
-}
-
-interface SortCol {
-  path: string;
-  order: boolean | 'asc' | 'desc';
 }
 
 const pageSize = 3;
@@ -55,17 +51,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
 
   const games = paginate(sortedGames, currentPage, pageSize);
 
-  const sort = (path: string) => {
-    const sortCol = { ...sortColumn };
-    if (sortCol.path === path)
-      sortCol.order = sortCol.order === 'asc' ? 'desc' : 'asc';
-    else {
-      sortCol.path = path;
-      sortCol.order = 'asc';
-    }
-    setSortColumn(sortCol);
-    console.log(sortCol, '===');
-  };
+  const sort = (sortColumn: SortCol) => setSortColumn(sortColumn);
 
   return (
     <div className="row">
@@ -78,7 +64,12 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
       </div>
       <div className="col">
         <p>Showing {filteredGames.length} games in the database.</p>
-        <GamesTable games={games} onRemoveGame={onRemoveGame} onSort={sort} />
+        <GamesTable
+          games={games}
+          onRemoveGame={onRemoveGame}
+          onSort={sort}
+          sortColumn={sortColumn}
+        />
         <Pagination
           itemsCount={filteredGames.length}
           pageSize={pageSize}
