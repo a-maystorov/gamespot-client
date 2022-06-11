@@ -18,6 +18,10 @@ code {
   cursor: pointer;
 }
 
+.clickable:last-child {
+  cursor: default;
+}
+
 /* Bootstrap modifications */
 .page-link:focus {
   box-shadow: none;

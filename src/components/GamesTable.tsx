@@ -1,6 +1,8 @@
 import Game from '../models/Game';
 import SortCol from '../models/SortCol';
 
+import TableHeader from './common/TableHeader';
+
 interface GamesTableProps {
   games: Game[];
   onRemoveGame: (id: string) => void;
@@ -14,38 +16,17 @@ function GamesTable({
   onSort,
   sortColumn,
 }: GamesTableProps) {
-  const raiseSort = (path: string) => {
-    const sortCol = { ...sortColumn };
-    if (sortCol.path === path)
-      sortCol.order = sortCol.order === 'asc' ? 'desc' : 'asc';
-    else {
-      sortCol.path = path;
-      sortCol.order = 'asc';
-    }
-    onSort(sortCol);
-  };
+  const columns = [
+    { path: 'title', label: 'Title' },
+    { path: 'genre.name', label: 'Genre' },
+    { path: 'numberInStock', label: 'Stock' },
+    { path: 'dailyRentalRate', label: 'Rate' },
+    { path: '', label: '', key: 'delete' },
+  ];
 
   return (
     <table className="table">
-      <thead className="table-dark">
-        <tr>
-          <th onClick={() => raiseSort('title')} className="clickable">
-            Title
-          </th>
-          <th onClick={() => raiseSort('genre.name')} className="clickable">
-            Genre
-          </th>
-          <th onClick={() => raiseSort('numberInStock')} className="clickable">
-            Stock
-          </th>
-          <th
-            onClick={() => raiseSort('dailyRentalRate')}
-            className="clickable">
-            Rate
-          </th>
-          <th />
-        </tr>
-      </thead>
+      <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
       <tbody>
         {games.map((game) => (
           <tr key={game._id}>
