@@ -1,8 +1,6 @@
 import Game from '../models/Game';
 import SortCol from '../models/SortCol';
-
-import TableBody from './common/TableBody';
-import TableHeader from './common/TableHeader';
+import Table from './common/Table';
 
 interface GamesTableProps {
   games: Game[];
@@ -37,10 +35,12 @@ function GamesTable({
   ];
 
   return (
-    <table className="table">
-      <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
-      <TableBody data={games} columns={columns} />
-    </table>
+    <Table
+      columns={columns}
+      data={games}
+      onSort={onSort}
+      sortColumn={sortColumn}
+    />
   );
 }
 
