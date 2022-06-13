@@ -27,31 +27,36 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
     order: 'asc',
   });
 
-  const { length: gamesCount } = allGames;
-
-  if (gamesCount === 0) return <p>There are no games in the database.</p>;
-
-  const changePage = (page: number) => setCurrentPage(page);
-
   const selectGenre = (genre: Genre) => {
     setSelectedGenre(genre);
     setCurrentPage(1);
   };
 
-  const filteredGames =
-    selectedGenre && selectedGenre._id
-      ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
-      : allGames;
-
-  const sortedGames = _.orderBy(
-    filteredGames,
-    [sortColumn.path],
-    [sortColumn.order]
-  );
-
-  const games = paginate(sortedGames, currentPage, pageSize);
+  const changePage = (page: number) => setCurrentPage(page);
 
   const sort = (sortColumn: SortCol) => setSortColumn(sortColumn);
+
+  const getPagedData = () => {
+    const filteredGames =
+      selectedGenre && selectedGenre._id
+        ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
+        : allGames;
+
+    const sortedGames = _.orderBy(
+      filteredGames,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
+    const games = paginate(sortedGames, currentPage, pageSize);
+
+    return { totalCount: filteredGames.length, data: games };
+  };
+
+  const { totalCount, data: games } = getPagedData();
+
+  if (totalCount === 0)
+    return <p>There are currently no games in the database.</p>;
 
   return (
     <div className="row">
@@ -63,7 +68,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         />
       </div>
       <div className="col">
-        <p>Showing {filteredGames.length} games in the database.</p>
+        <p>Showing {totalCount} games in the database.</p>
         <GamesTable
           games={games}
           onRemoveGame={onRemoveGame}
@@ -71,7 +76,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
           sortColumn={sortColumn}
         />
         <Pagination
-          itemsCount={filteredGames.length}
+          itemsCount={totalCount}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={changePage}
