@@ -1,6 +1,9 @@
 import SortCol from '../../models/SortCol';
 import Column from '../../models/Column';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+
 interface TableHeaderProps {
   columns: Column[];
   onSort: (sortColumn: SortCol) => void;
@@ -19,6 +22,12 @@ function TableHeader({ columns, onSort, sortColumn }: TableHeaderProps) {
     onSort(sortCol);
   };
 
+  const renderSortIcon = (column: SortCol | Column) => {
+    if (column.path !== sortColumn.path) return null;
+    if (sortColumn.order === 'asc') return <FontAwesomeIcon icon={faSortUp} />;
+    return <FontAwesomeIcon icon={faSortDown} />;
+  };
+
   return (
     <thead className="table-dark">
       <tr>
@@ -27,7 +36,7 @@ function TableHeader({ columns, onSort, sortColumn }: TableHeaderProps) {
             key={column.path || column.key}
             className="clickable"
             onClick={() => raiseSort(column.path)}>
-            {column.label}
+            {column.label} {renderSortIcon(column)}
           </th>
         ))}
       </tr>
