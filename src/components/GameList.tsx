@@ -8,7 +8,7 @@ import SortCol from '../models/SortCol';
 import Pagination from './common/Pagination';
 import paginate from '../utils/paginate';
 
-import ListGroup from './GenreList';
+import GenreList from './GenreList';
 import GamesTable from './GamesTable';
 
 interface GameListProps {
@@ -61,7 +61,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   return (
     <div className="row">
       <div className="col-2">
-        <ListGroup
+        <GenreList
           genres={genres}
           onGenreSelect={selectGenre}
           selectedGenre={selectedGenre!}
