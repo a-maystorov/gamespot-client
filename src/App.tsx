@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import GameForm from './components/GameForm';
 
 import './App.css';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/games" element={<Games />} />
           <Route path="/games/:id" element={<GameForm />} />
           <Route path="/rentals" element={<Rentals />} />
+          <Route path="/login" element={<LoginForm />} />
         </Routes>
       </main>
     </>
