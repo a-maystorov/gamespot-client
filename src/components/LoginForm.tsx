@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Input from './common/Input';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -7,7 +8,11 @@ function LoginForm() {
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || !password) setError('Invalid username or password');
+
+    if (!username || !password) {
+      setError('Invalid username or password');
+      return;
+    }
     console.log('Username: ', username);
     console.log('Password: ', password);
   };
@@ -16,28 +21,18 @@ function LoginForm() {
     <div>
       <h1>Login</h1>
       <form onSubmit={submitForm}>
-        <div className="form-group">
-          <label htmlFor="username" className="mt-3">
-            Username
-          </label>
-          <input
-            id="username"
-            type="text"
-            className="form-control rounded-pill"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="mt-3">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            className="form-control rounded-pill"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+        <Input
+          label="Username"
+          name="username"
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          label="Password"
+          name="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         {error && (
           <div
             className="form-control alert-danger rounded-pill mt-4"
