@@ -9,10 +9,16 @@ function LoginForm() {
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (username === '' || password === '') {
+      setError('Username and/or password is required');
+      return;
+    }
+
     if (!username || !password) {
       setError('Invalid username or password');
       return;
     }
+    setError('');
     console.log('Username: ', username);
     console.log('Password: ', password);
   };
