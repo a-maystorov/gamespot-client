@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import Game from '../models/Game';
 import SortCol from '../models/SortCol';
+
 import Table from './common/Table';
 
 interface GamesTableProps {
@@ -16,7 +19,13 @@ function GamesTable({
   sortColumn,
 }: GamesTableProps) {
   const columns = [
-    { path: 'title', label: 'Title' },
+    {
+      path: 'title',
+      label: 'Title',
+      content: (game: any) => (
+        <Link to={`/games/${game._id}`}>{game.title}</Link>
+      ),
+    },
     { path: 'genre.name', label: 'Genre' },
     { path: 'numberInStock', label: 'Stock' },
     { path: 'dailyRentalRate', label: 'Rate' },
