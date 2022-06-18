@@ -1,53 +1,46 @@
+import { Formik } from 'formik';
 import React, { useState } from 'react';
 import Input from './common/Input';
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const submitForm = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (username === '' || password === '') {
-      setError('Username and/or password is required');
-      return;
-    }
-
-    if (!username || !password) {
-      setError('Invalid username or password');
-      return;
-    }
-    setError('');
-    console.log('Username: ', username);
-    console.log('Password: ', password);
-  };
-
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={submitForm}>
-        <Input
-          label="Username"
-          name="username"
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          label="Password"
-          name="password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && (
-          <div
-            className="form-control alert-danger rounded-pill mt-4"
-            role="alert">
-            {error}
-          </div>
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        onSubmit={(data, { setSubmitting }) => {
+          setSubmitting(true);
+          // Async call
+          console.log('Login data: ', data);
+          setSubmitting(false);
+        }}>
+        {({ values, handleChange, handleSubmit, isSubmitting }) => (
+          <form onSubmit={handleSubmit}>
+            <Input
+              label="Username"
+              name="username"
+              type="text"
+              onChange={handleChange}
+              value={values.username}
+            />
+
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              onChange={handleChange}
+              value={values.password}
+            />
+
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill my-3"
+              disabled={isSubmitting}>
+              Login
+            </button>
+          </form>
         )}
-        <button className="btn btn-primary rounded-pill my-3">Login</button>
-      </form>
+      </Formik>
     </div>
   );
 }
