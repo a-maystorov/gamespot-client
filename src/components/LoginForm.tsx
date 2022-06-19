@@ -1,27 +1,35 @@
-import { Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import Input from './common/Input';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  email: Yup.string().min(5).max(255).required().email(),
+  password: Yup.string().min(5).max(255).required(),
+});
 
 function LoginForm() {
   return (
     <div>
       <h1>Login</h1>
       <Formik
-        initialValues={{ username: '', password: '' }}
+        initialValues={{ email: '', password: '' }}
         onSubmit={(data, { setSubmitting }) => {
           setSubmitting(true);
           // Async call
           console.log('Login data: ', data);
           setSubmitting(false);
-        }}>
-        {({ values, handleChange, handleSubmit, isSubmitting }) => (
-          <form onSubmit={handleSubmit}>
+        }}
+        validationSchema={validationSchema}>
+        {({ values, handleChange, isSubmitting, errors }) => (
+          <Form>
             <Input
-              label="Username"
-              name="username"
-              type="text"
+              label="Email"
+              name="email"
+              type="email"
               onChange={handleChange}
-              value={values.username}
+              value={values.email}
+              errors={errors.email}
             />
 
             <Input
@@ -30,6 +38,7 @@ function LoginForm() {
               type="password"
               onChange={handleChange}
               value={values.password}
+              errors={errors.password}
             />
 
             <button
@@ -38,7 +47,7 @@ function LoginForm() {
               disabled={isSubmitting}>
               Login
             </button>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>
