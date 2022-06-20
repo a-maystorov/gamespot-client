@@ -6,9 +6,10 @@ import Rentals from './pages/Rentals';
 
 import NavBar from './components/NavBar';
 import GameForm from './components/GameForm';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 
 import './App.css';
-import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/games/:id" element={<GameForm />} />
           <Route path="/rentals" element={<Rentals />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </main>
     </>
