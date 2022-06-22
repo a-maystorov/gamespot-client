@@ -3,7 +3,7 @@ import Genre from '../models/Genre';
 
 class GenreService {
   http = axios.create({
-    baseURL: ' https://gamespot-api.herokuapp.com/api',
+    baseURL: 'https://gamespot-api.herokuapp.com/api',
   });
 
   async getGenres() {

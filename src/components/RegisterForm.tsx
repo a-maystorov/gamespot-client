@@ -1,6 +1,9 @@
 import { Form, Formik } from 'formik';
-import Input from './common/Input';
 import * as Yup from 'yup';
+
+import UserService from '../services/UserService';
+
+import Input from './common/Input';
 
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(50).required(),
@@ -16,7 +19,11 @@ function RegisterForm() {
         initialValues={{ email: '', password: '', name: '' }}
         onSubmit={(data, { setSubmitting }) => {
           setSubmitting(true);
-          // Async call
+          UserService.register({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+          });
           console.log('Register data: ', data);
           setSubmitting(false);
         }}

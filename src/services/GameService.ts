@@ -3,7 +3,7 @@ import Game from '../models/Game';
 
 class GameService {
   http = axios.create({
-    baseURL: ' https://gamespot-api.herokuapp.com/api',
+    baseURL: 'https://gamespot-api.herokuapp.com/api',
   });
 
   async getGames() {
