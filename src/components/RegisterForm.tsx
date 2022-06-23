@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -27,10 +28,15 @@ function RegisterForm() {
             });
             setSubmitting(false);
           } catch (err) {
-            setFieldError('email', 'Email is already in use.');
+            console.error(err);
+
+            if (err instanceof AxiosError)
+              setFieldError('email', err.response?.data);
+
             setSubmitting(false);
           }
         }}
+        validateOnChange={false}
         validationSchema={validationSchema}>
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
