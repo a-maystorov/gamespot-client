@@ -17,15 +17,19 @@ function RegisterForm() {
       <h1>Register</h1>
       <Formik
         initialValues={{ email: '', password: '', name: '' }}
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
-          UserService.register({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          });
-          console.log('Register data: ', data);
-          setSubmitting(false);
+          try {
+            await UserService.register({
+              name: data.name,
+              email: data.email,
+              password: data.password,
+            });
+            setSubmitting(false);
+          } catch (err) {
+            setFieldError('email', 'Email is already in use.');
+            setSubmitting(false);
+          }
         }}
         validationSchema={validationSchema}>
         {({ values, handleChange, isSubmitting, errors }) => (
@@ -38,7 +42,6 @@ function RegisterForm() {
               value={values.name}
               errors={errors.name}
             />
-
             <Input
               label="Email"
               name="email"
@@ -47,7 +50,6 @@ function RegisterForm() {
               value={values.email}
               errors={errors.email}
             />
-
             <Input
               label="Password"
               name="password"
