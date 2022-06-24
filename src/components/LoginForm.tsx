@@ -1,7 +1,10 @@
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
-import Input from './common/Input';
 import * as Yup from 'yup';
+
 import AuthService from '../services/AuthService';
+
+import Input from './common/Input';
 
 const validationSchema = Yup.object({
   email: Yup.string().min(5).max(255).required().email(),
@@ -14,13 +17,19 @@ function LoginForm() {
       <h1>Login</h1>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={async (data, { setSubmitting }) => {
+        onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
-          await AuthService.login(data.email, data.password);
-          console.log('Login data: ', data);
-          setSubmitting(false);
+          try {
+            await AuthService.login(data.email, data.password);
+            setSubmitting(false);
+          } catch (err) {
+            if (err instanceof AxiosError)
+              setFieldError('email', err.response?.data);
+            setSubmitting(false);
+          }
         }}
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema}
+        validateOnChange={false}>
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
             <Input
