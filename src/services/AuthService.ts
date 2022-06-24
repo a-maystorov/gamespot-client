@@ -11,6 +11,7 @@ class AuthService {
   async login(email: string, password: string) {
     const { data: jwt } = await this.http.post('/auth', { email, password });
     localStorage.setItem(key, jwt);
+    return jwt;
   }
 
   loginWithJwt(jwt: string) {

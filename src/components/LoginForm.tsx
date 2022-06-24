@@ -1,6 +1,7 @@
 import { Form, Formik } from 'formik';
 import Input from './common/Input';
 import * as Yup from 'yup';
+import AuthService from '../services/AuthService';
 
 const validationSchema = Yup.object({
   email: Yup.string().min(5).max(255).required().email(),
@@ -13,9 +14,9 @@ function LoginForm() {
       <h1>Login</h1>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={async (data, { setSubmitting }) => {
           setSubmitting(true);
-          // Async call
+          await AuthService.login(data.email, data.password);
           console.log('Login data: ', data);
           setSubmitting(false);
         }}
