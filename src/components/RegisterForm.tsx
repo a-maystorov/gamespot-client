@@ -27,12 +27,11 @@ function RegisterForm() {
               password: data.password,
             });
             setSubmitting(false);
+            window.location.href = '/';
           } catch (err) {
             console.error(err);
-
             if (err instanceof AxiosError)
               setFieldError('email', err.response?.data);
-
             setSubmitting(false);
           }
         }}

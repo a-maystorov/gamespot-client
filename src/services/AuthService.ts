@@ -20,6 +20,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem(key);
+    window.location.href = '/';
   }
 
   getToken() {

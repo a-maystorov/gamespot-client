@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom';
+import User from '../models/User';
+import AuthService from '../services/AuthService';
 
-function NavBar() {
+interface NavBarProps {
+  user: User;
+}
+
+function NavBar({ user }: NavBarProps) {
   return (
     <nav className="navbar navbar-expand-lg bg-dark mb-5">
       <div className="container-fluid">
@@ -23,16 +29,36 @@ function NavBar() {
               Rentals
             </NavLink>
           </li>
-          <li>
-            <NavLink className="nav-link" to="/login">
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" to="/register">
-              Register
-            </NavLink>
-          </li>
+          {!user && (
+            <>
+              <li>
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" to="/register">
+                  Register
+                </NavLink>
+              </li>
+            </>
+          )}
+          {user && (
+            <>
+              <li>
+                <NavLink className="nav-link" to="/me">
+                  Hello, {user.name}
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  className="btn btn-secondary rounded-pill"
+                  onClick={() => AuthService.logout()}>
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

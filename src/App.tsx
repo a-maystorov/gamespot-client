@@ -10,11 +10,22 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 
 import './App.css';
+import { useEffect, useState } from 'react';
+import jwtDecode from 'jwt-decode';
 
 function App() {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('authToken');
+    if (jwt) setUser(jwtDecode(jwt));
+  }, []);
+
+  console.log(user);
+
   return (
     <>
-      <NavBar />
+      <NavBar user={user!} />
       <main className="container">
         <Routes>
           <Route path="/" element={<Navigate to={'/games'} />} />

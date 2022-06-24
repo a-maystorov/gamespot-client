@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { AxiosError } from 'axios';
 
 import AuthService from '../services/AuthService';
 
@@ -22,6 +22,7 @@ function LoginForm() {
           try {
             await AuthService.login(data.email, data.password);
             setSubmitting(false);
+            window.location.href = '/';
           } catch (err) {
             if (err instanceof AxiosError)
               setFieldError('email', err.response?.data);

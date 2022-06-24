@@ -7,11 +7,12 @@ class UserService {
   });
 
   async register(user: User) {
-    await this.http.post('/users', {
+    const res = await this.http.post('/users', {
       name: user.name,
       email: user.email,
       password: user.password,
     });
+    localStorage.setItem('authToken', res.headers['x-auth-token']);
   }
 }
 
