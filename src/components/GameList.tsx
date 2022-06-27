@@ -10,6 +10,7 @@ import paginate from '../utils/paginate';
 
 import GenreList from './GenreList';
 import GamesTable from './GamesTable';
+import SearchBar from './SearchBar';
 
 interface GameListProps {
   games: Game[];
@@ -21,11 +22,18 @@ const pageSize = 3;
 
 function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedGenre, setSelectedGenre] = useState<Genre>();
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>();
   const [sortColumn, setSortColumn] = useState<SortCol>({
     path: 'title',
     order: 'asc',
   });
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const search = (query: string) => {
+    setSearchQuery(query);
+    setSelectedGenre(null);
+    setCurrentPage(1);
+  };
 
   const selectGenre = (genre: Genre) => {
     setSelectedGenre(genre);
@@ -40,6 +48,10 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
     const filteredGames =
       selectedGenre && selectedGenre._id
         ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
+        : searchQuery
+        ? allGames.filter((game) =>
+            game.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+          )
         : allGames;
 
     const sortedGames = _.orderBy(
@@ -69,6 +81,11 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
       </div>
       <div className="col">
         <p>Showing {totalCount} games in the database.</p>
+
+        <SearchBar
+          value={searchQuery}
+          onChange={(e) => search(e.target.value)}
+        />
         <GamesTable
           games={games}
           onRemoveGame={onRemoveGame}

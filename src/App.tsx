@@ -21,8 +21,6 @@ function App() {
     if (jwt) setUser(jwtDecode(jwt));
   }, []);
 
-  console.log(user);
-
   return (
     <>
       <NavBar user={user!} />
