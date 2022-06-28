@@ -11,7 +11,12 @@ class GameService {
     return res.data;
   }
 
-  async removeGame(id: number) {
+  async getGame(id: string) {
+    const res = await this.http.get<Game>('/games/' + id);
+    return res.data;
+  }
+
+  async removeGame(id: string) {
     const res = await this.http.delete('/games/' + id);
     return res.data;
   }

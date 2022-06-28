@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
 import SortCol from '../models/SortCol';
+import User from '../models/User';
 
 import Pagination from './common/Pagination';
 import paginate from '../utils/paginate';
@@ -16,11 +18,17 @@ interface GameListProps {
   games: Game[];
   onRemoveGame: (id: string) => void;
   genres: Genre[];
+  user: User;
 }
 
 const pageSize = 3;
 
-function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
+function GameList({
+  games: allGames,
+  onRemoveGame,
+  genres,
+  user,
+}: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>();
   const [sortColumn, setSortColumn] = useState<SortCol>({
@@ -88,6 +96,12 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         />
       </div>
       <div className="col">
+        {user && (
+          <Link to="/games/new" className="btn btn-primary rounded-pill mb-3">
+            Add Game
+          </Link>
+        )}
+
         <p>Showing {totalCount} games in the database.</p>
 
         <SearchBar

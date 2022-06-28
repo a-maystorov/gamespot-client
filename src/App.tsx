@@ -68,6 +68,7 @@ function App() {
                 genres={genres}
                 isLoading={isLoading}
                 removeGame={removeGame}
+                user={user!}
               />
             }
           />
