@@ -9,18 +9,17 @@ interface InputProps {
   errors: string | undefined;
 }
 
-function Input({ label, name, type, onChange, value, errors }: InputProps) {
+function Input({ label, name, errors, ...rest }: InputProps) {
   return (
     <div className="form-group">
       <label htmlFor={name} className="mt-3">
         {label}
       </label>
       <input
+        name={name}
         id={name}
-        type={type}
         className="form-control rounded-pill"
-        onChange={onChange}
-        value={value}
+        {...rest}
       />
       {errors && (
         <div className="form-control alert-danger rounded-pill mt-3">

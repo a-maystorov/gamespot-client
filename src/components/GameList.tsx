@@ -67,8 +67,16 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
 
   const { totalCount, data: games } = getPagedData();
 
-  if (totalCount === 0)
-    return <p>There are currently no games in the database.</p>;
+  if (!totalCount)
+    return (
+      <>
+        <p>There are currently no games in the database.</p>
+        <SearchBar
+          value={searchQuery}
+          onChange={(e) => search(e.target.value)}
+        />
+      </>
+    );
 
   return (
     <div className="row">
@@ -86,12 +94,14 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
           value={searchQuery}
           onChange={(e) => search(e.target.value)}
         />
+
         <GamesTable
           games={games}
           onRemoveGame={onRemoveGame}
           onSort={sort}
           sortColumn={sortColumn}
         />
+
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}
