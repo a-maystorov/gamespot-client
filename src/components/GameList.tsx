@@ -55,7 +55,7 @@ function GameList({
   const getPagedData = () => {
     const filteredGames =
       selectedGenre && selectedGenre._id
-        ? allGames.filter((game) => game.genre._id === selectedGenre?._id)
+        ? allGames.filter((game) => game.genre!._id === selectedGenre?._id)
         : searchQuery
         ? allGames.filter((game) =>
             game.title.toLowerCase().startsWith(searchQuery.toLowerCase())

@@ -10,6 +10,7 @@ import NavBar from './components/NavBar';
 import GameForm from './components/GameForm';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import NotFound from './components/NotFound';
 
 import GenreService from './services/GenreService';
 import GameService from './services/GameService';
@@ -40,7 +41,7 @@ function App() {
   };
 
   const removeGame = async (id: string) => {
-    // await GameService.removeGame(id);
+    await GameService.removeGame(id);
     setGames(games.filter((game) => game._id !== id));
   };
 
@@ -72,10 +73,14 @@ function App() {
               />
             }
           />
-          <Route path="/games/:id" element={<GameForm />} />
+          <Route
+            path="/games/:id"
+            element={<GameForm games={games} genres={genres} />}
+          />
           <Route path="/rentals" element={<Rentals />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </main>
     </>

@@ -1,9 +1,10 @@
 import Genre from './Genre';
 
 export default interface Game {
-  _id: string;
+  _id?: string;
   title: string;
-  genre: Genre;
-  numberInStock: number;
-  dailyRentalRate: number;
+  genre?: Genre;
+  genreId?: string;
+  numberInStock: number | string;
+  dailyRentalRate: number | string;
 }

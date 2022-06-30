@@ -14,7 +14,7 @@ function TableBody({ data, columns }: TableBodyProps) {
   };
 
   const createKey = (item: Game, column: Column) =>
-    item._id + (column.path || column.key);
+    item._id! + (column.path || column.key);
 
   return (
     <tbody>

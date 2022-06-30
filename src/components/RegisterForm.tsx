@@ -47,6 +47,7 @@ function RegisterForm() {
               value={values.name}
               errors={errors.name}
             />
+
             <Input
               label="Email"
               name="email"
@@ -55,6 +56,7 @@ function RegisterForm() {
               value={values.email}
               errors={errors.email}
             />
+
             <Input
               label="Password"
               name="password"
