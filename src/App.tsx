@@ -41,8 +41,8 @@ function App() {
   };
 
   const removeGame = async (id: string) => {
-    await GameService.removeGame(id);
     setGames(games.filter((game) => game._id !== id));
+    await GameService.removeGame(id);
   };
 
   const loadGenres = async () => {

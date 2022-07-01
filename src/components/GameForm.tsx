@@ -49,13 +49,16 @@ function GameForm({ genres }: GameFormProps) {
           setSubmitting(true);
           try {
             const { dailyRentalRate, genreId, numberInStock, title } = data;
+
             await GameService.addGame({
               title,
               genreId,
               numberInStock,
               dailyRentalRate,
             });
+
             setSubmitting(false);
+
             window.location.href = '/';
           } catch (err) {
             if (err instanceof AxiosError)
