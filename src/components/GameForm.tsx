@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -9,11 +10,10 @@ import GameService from '../services/GameService';
 import Input from './common/Input';
 import Select from './common/Select';
 
-import Game from '../models/Game';
 import Genre from '../models/Genre';
+import Game from '../models/Game';
 
 interface GameFormProps {
-  games: Game[];
   genres: Genre[];
 }
 
@@ -34,35 +34,71 @@ const validationSchema = Yup.object({
 
 function GameForm({ genres }: GameFormProps) {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [game, setGame] = useState<Game>();
+
+  const loadCurrentGame = useCallback(async () => {
+    if (id === 'new') return;
+
+    try {
+      const game = await GameService.getGame(id!);
+      setGame(game);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        err.response && err.response.status === 404
+          ? navigate('/not-found')
+          : console.error(err.response?.data);
+      }
+
+      console.error(err);
+    }
+  }, [id, navigate]);
+
+  useEffect(() => {
+    loadCurrentGame();
+  }, [loadCurrentGame]);
 
   return (
     <div>
       <h1>Game Form {id}</h1>
       <Formik
+        enableReinitialize={true}
         initialValues={{
-          title: '',
-          genreId: '',
-          numberInStock: '',
-          dailyRentalRate: '',
+          title: game ? game.title : '',
+          genreId: game ? game.genre?._id : '',
+          numberInStock: game ? game.numberInStock : '',
+          dailyRentalRate: game ? game.dailyRentalRate : '',
         }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
           try {
             const { dailyRentalRate, genreId, numberInStock, title } = data;
 
-            await GameService.addGame({
-              title,
-              genreId,
-              numberInStock,
-              dailyRentalRate,
-            });
+            if (id === 'new')
+              await GameService.addGame({
+                title,
+                genreId,
+                numberInStock,
+                dailyRentalRate,
+              });
+            else
+              game &&
+                (await GameService.updateGame(
+                  {
+                    title,
+                    genreId,
+                    numberInStock,
+                    dailyRentalRate,
+                  },
+                  id!
+                ));
 
             setSubmitting(false);
 
             window.location.href = '/';
           } catch (err) {
             if (err instanceof AxiosError)
-              setFieldError('title', err.response?.data);
+              setFieldError('dailyRentalRate', err.response?.data);
             setSubmitting(false);
           }
         }}
@@ -82,10 +118,11 @@ function GameForm({ genres }: GameFormProps) {
             <Select
               errors={values.genreId}
               label="Genre"
+              placeholder={game && game.genre?.name}
               name="genreId"
               onChange={handleChange}
               options={genres}
-              value={values.genreId}
+              value={values.genreId || game?.genre?._id}
             />
 
             <Input
@@ -112,6 +149,9 @@ function GameForm({ genres }: GameFormProps) {
               disabled={isSubmitting}>
               Save
             </button>
+
+            <pre>{JSON.stringify(values, null, 2)}</pre>
+            <pre>{JSON.stringify(errors, null, 2)}</pre>
           </Form>
         )}
       </Formik>

@@ -19,13 +19,30 @@ class GameService {
   }
 
   async getGame(id: string) {
-    const res = await this.http.get<Game>('/games/' + id);
+    const res = await this.http.get<Game>('/games/' + id, { headers });
     return res.data;
   }
 
   async addGame({ title, genreId, dailyRentalRate, numberInStock }: Game) {
     const res = await this.http.post<Game>(
       '/games',
+      {
+        title,
+        genreId,
+        numberInStock,
+        dailyRentalRate,
+      },
+      { headers }
+    );
+    return res.data;
+  }
+
+  async updateGame(
+    { title, genreId, dailyRentalRate, numberInStock }: Game,
+    id: string
+  ) {
+    const res = await this.http.put(
+      '/games/' + id,
       {
         title,
         genreId,

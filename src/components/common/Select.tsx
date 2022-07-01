@@ -4,9 +4,10 @@ interface SelectProps {
   name: string;
   label: string;
   options: Genre[];
-  value: string | number;
+  value: string | number | undefined;
   errors: string | undefined;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  placeholder?: any;
 }
 const Select = ({
   name,
@@ -15,6 +16,7 @@ const Select = ({
   errors,
   onChange,
   value,
+  placeholder,
   ...rest
 }: SelectProps) => {
   return (
@@ -23,10 +25,10 @@ const Select = ({
       <select
         name={name}
         id={name}
-        {...rest}
         className="form-control rounded-pill"
-        onChange={onChange}>
-        <option value="" label={`Select a ${label}`} />
+        onChange={onChange}
+        {...rest}>
+        <option value="" label={placeholder} />
 
         {options.map(
           (option) =>

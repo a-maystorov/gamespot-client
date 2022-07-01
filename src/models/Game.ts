@@ -7,4 +7,5 @@ export default interface Game {
   genreId?: string;
   numberInStock: number | string;
   dailyRentalRate: number | string;
+  __v?: number;
 }
