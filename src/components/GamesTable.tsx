@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import Game from '../models/Game';
 import SortCol from '../models/SortCol';
+import User from '../models/User';
 
 import Table from './common/Table';
 
@@ -10,6 +11,7 @@ interface GamesTableProps {
   onRemoveGame: (id: string) => void;
   onSort: (sortColumn: SortCol) => void;
   sortColumn: SortCol;
+  user: User;
 }
 
 function GamesTable({
@@ -17,31 +19,35 @@ function GamesTable({
   onRemoveGame,
   onSort,
   sortColumn,
+  user,
 }: GamesTableProps) {
   const columns = [
     {
       path: 'title',
       label: 'Title',
       content: (game: any) => (
-        <Link to={`/games/${game._id}`}>{game.title}</Link>
+        <Link to={user ? `/games/${game._id}` : '/login'}>{game.title}</Link>
       ),
     },
     { path: 'genre.name', label: 'Genre' },
     { path: 'numberInStock', label: 'Stock' },
     { path: 'dailyRentalRate', label: 'Rate' },
-    {
-      path: '',
-      label: '',
-      key: 'delete',
-      content: (game: any) => (
-        <button
-          className="btn btn-danger btn-sm rounded-pill"
-          onClick={() => onRemoveGame(game._id)}>
-          Delete
-        </button>
-      ),
-    },
   ];
+
+  const deleteColumn = {
+    path: '',
+    label: '',
+    key: 'delete',
+    content: (game: any) => (
+      <button
+        className="btn btn-danger btn-sm rounded-pill"
+        onClick={() => onRemoveGame(game._id)}>
+        Delete
+      </button>
+    ),
+  };
+
+  if (user && user.isAdmin) columns.push(deleteColumn);
 
   return (
     <Table

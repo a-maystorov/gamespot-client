@@ -114,6 +114,7 @@ function GameList({
           onRemoveGame={onRemoveGame}
           onSort={sort}
           sortColumn={sortColumn}
+          user={user}
         />
 
         <Pagination
