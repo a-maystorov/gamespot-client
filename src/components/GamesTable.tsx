@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 
+import AuthService from '../services/AuthService';
+
 import Game from '../models/Game';
 import SortCol from '../models/SortCol';
-import User from '../models/User';
 
 import Table from './common/Table';
 
@@ -11,7 +12,6 @@ interface GamesTableProps {
   onRemoveGame: (id: string) => void;
   onSort: (sortColumn: SortCol) => void;
   sortColumn: SortCol;
-  user: User;
 }
 
 function GamesTable({
@@ -19,8 +19,9 @@ function GamesTable({
   onRemoveGame,
   onSort,
   sortColumn,
-  user,
 }: GamesTableProps) {
+  const user: any = AuthService.getUser();
+
   const columns = [
     {
       path: 'title',

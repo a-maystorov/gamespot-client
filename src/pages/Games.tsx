@@ -1,27 +1,39 @@
+import { useCallback, useEffect, useState } from 'react';
 import GameList from '../components/GameList';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
-import User from '../models/User';
+import GameService from '../services/GameService';
 
 interface GamesProps {
-  games: Game[];
-  removeGame: (id: string) => void;
   genres: Genre[];
   isLoading: boolean;
-  user: User;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Games({ games, genres, isLoading, removeGame, user }: GamesProps) {
+function Games({ genres, isLoading, setIsLoading }: GamesProps) {
+  const [games, setGames] = useState<Game[]>([]);
+
+  const loadGames = useCallback(async () => {
+    setIsLoading(true);
+    const gamesFromDb = await GameService.getGames();
+    setIsLoading(false);
+    setGames(gamesFromDb);
+  }, [setIsLoading]);
+
+  useEffect(() => {
+    loadGames();
+  }, [loadGames]);
+
+  const removeGame = async (id: string) => {
+    setGames(games.filter((game) => game._id !== id));
+    await GameService.removeGame(id);
+  };
+
   return (
     <>
       {isLoading && <p>Loading...</p>}
-      <GameList
-        games={games}
-        onRemoveGame={removeGame}
-        genres={genres}
-        user={user}
-      />
+      <GameList games={games} onRemoveGame={removeGame} genres={genres} />
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 
 import Customers from './pages/Customers';
 import Games from './pages/Games';
@@ -13,37 +12,21 @@ import RegisterForm from './components/RegisterForm';
 import NotFound from './components/NotFound';
 
 import GenreService from './services/GenreService';
-import GameService from './services/GameService';
 
 import Genre from './models/Genre';
-import Game from './models/Game';
 
 import './App.css';
+import AuthService from './services/AuthService';
 
 function App() {
-  const [user, setUser] = useState();
-  const [games, setGames] = useState<Game[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const user: any = AuthService.getUser();
+
   useEffect(() => {
-    loadGames();
     loadGenres();
-    const jwt = localStorage.getItem('authToken');
-    if (jwt) setUser(jwtDecode(jwt));
   }, []);
-
-  const loadGames = async () => {
-    setIsLoading(true);
-    const gamesFromDb = await GameService.getGames();
-    setIsLoading(false);
-    setGames(gamesFromDb);
-  };
-
-  const removeGame = async (id: string) => {
-    setGames(games.filter((game) => game._id !== id));
-    await GameService.removeGame(id);
-  };
 
   const loadGenres = async () => {
     const allGenres: Genre = { _id: '', name: 'All Genres' };
@@ -56,7 +39,7 @@ function App() {
 
   return (
     <>
-      <NavBar user={user!} />
+      <NavBar user={user} />
       <main className="container">
         <Routes>
           <Route path="/" element={<Navigate to={'/games'} />} />
@@ -65,11 +48,9 @@ function App() {
             path="/games"
             element={
               <Games
-                games={games}
                 genres={genres}
                 isLoading={isLoading}
-                removeGame={removeGame}
-                user={user!}
+                setIsLoading={setIsLoading}
               />
             }
           />

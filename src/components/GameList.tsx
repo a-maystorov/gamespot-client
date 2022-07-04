@@ -5,7 +5,6 @@ import _ from 'lodash';
 import Game from '../models/Game';
 import Genre from '../models/Genre';
 import SortCol from '../models/SortCol';
-import User from '../models/User';
 
 import Pagination from './common/Pagination';
 import paginate from '../utils/paginate';
@@ -13,22 +12,17 @@ import paginate from '../utils/paginate';
 import GenreList from './GenreList';
 import GamesTable from './GamesTable';
 import SearchBar from './SearchBar';
+import AuthService from '../services/AuthService';
 
 interface GameListProps {
   games: Game[];
   onRemoveGame: (id: string) => void;
   genres: Genre[];
-  user: User;
 }
 
 const pageSize = 3;
 
-function GameList({
-  games: allGames,
-  onRemoveGame,
-  genres,
-  user,
-}: GameListProps) {
+function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>();
   const [sortColumn, setSortColumn] = useState<SortCol>({
@@ -77,14 +71,25 @@ function GameList({
 
   if (!totalCount)
     return (
-      <>
-        <p>There are currently no games in the database.</p>
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => search(e.target.value)}
-        />
-      </>
+      <div className="row">
+        <div className="col-2">
+          <GenreList
+            genres={genres}
+            onGenreSelect={selectGenre}
+            selectedGenre={selectedGenre!}
+          />
+        </div>
+        <div className="col">
+          <p>There are currently no games in the database.</p>
+          <SearchBar
+            value={searchQuery}
+            onChange={(e) => search(e.target.value)}
+          />
+        </div>
+      </div>
     );
+
+  const user: any = AuthService.getUser();
 
   return (
     <div className="row">
@@ -114,7 +119,6 @@ function GameList({
           onRemoveGame={onRemoveGame}
           onSort={sort}
           sortColumn={sortColumn}
-          user={user}
         />
 
         <Pagination
