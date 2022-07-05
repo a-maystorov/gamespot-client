@@ -16,13 +16,10 @@ import GenreService from './services/GenreService';
 import Genre from './models/Genre';
 
 import './App.css';
-import AuthService from './services/AuthService';
 
 function App() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const user: any = AuthService.getUser();
 
   useEffect(() => {
     loadGenres();
@@ -39,7 +36,7 @@ function App() {
 
   return (
     <>
-      <NavBar user={user} />
+      <NavBar />
       <main className="container">
         <Routes>
           <Route path="/" element={<Navigate to={'/games'} />} />

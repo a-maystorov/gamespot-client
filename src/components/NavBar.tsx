@@ -1,12 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import User from '../models/User';
 import AuthService from '../services/AuthService';
 
-interface NavBarProps {
-  user: User;
-}
+function NavBar() {
+  const user: any = AuthService.getUser();
 
-function NavBar({ user }: NavBarProps) {
   return (
     <nav className="navbar navbar-expand-lg bg-dark mb-5">
       <div className="container-fluid">
