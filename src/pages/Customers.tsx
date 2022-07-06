@@ -26,6 +26,7 @@ function Customers({ isLoading, setIsLoading }: CustomersProps) {
     setCustomers(customers.filter((customer) => customer._id !== id));
     await CustomerService.removeCustomer(id);
   };
+
   return (
     <>
       {isLoading && <p>Loading...</p>}

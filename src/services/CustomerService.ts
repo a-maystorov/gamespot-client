@@ -18,6 +18,30 @@ class CustomerService {
     return res.data;
   }
 
+  async getCustomer(id: string) {
+    const res = await this.http.get<Customer>('/customers/' + id, { headers });
+    return res.data;
+  }
+
+  async addCustomer({ name, phone }: Customer) {
+    const res = await this.http.post<Customer>(
+      '/customers',
+      { name, phone },
+      { headers }
+    );
+
+    return res.data;
+  }
+
+  async updateCustomer({ name, phone }: Customer, id: string) {
+    const res = await this.http.put(
+      '/customers/' + id,
+      { name, phone },
+      { headers }
+    );
+    return res.data;
+  }
+
   async removeCustomer(id: string) {
     const res = await this.http.delete('/customers/' + id, { headers });
     return res.data;

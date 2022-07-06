@@ -16,6 +16,7 @@ import GenreService from './services/GenreService';
 import Genre from './models/Genre';
 
 import './App.css';
+import CustomerForm from './components/customers/CustomerForm';
 
 function App() {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -46,6 +47,7 @@ function App() {
               <Customers isLoading={isLoading} setIsLoading={setIsLoading} />
             }
           />
+          <Route path="/customers/:id" element={<CustomerForm />} />
           <Route
             path="/games"
             element={

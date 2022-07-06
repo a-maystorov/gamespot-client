@@ -1,6 +1,6 @@
 export default interface Customer {
-  _id: string;
+  _id?: string;
   name: string;
   phone: string;
-  isGold: boolean;
+  isGold?: boolean;
 }
