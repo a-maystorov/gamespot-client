@@ -5,13 +5,13 @@ import * as Yup from 'yup';
 
 import { AxiosError } from 'axios';
 
-import GameService from '../services/GameService';
+import GameService from '../../services/GameService';
 
-import Input from './common/Input';
-import Select from './common/Select';
+import Input from '../common/Input';
+import Select from '../common/Select';
 
-import Genre from '../models/Genre';
-import Game from '../models/Game';
+import Genre from '../../models/Genre';
+import Game from '../../models/Game';
 
 interface GameFormProps {
   genres: Genre[];

@@ -6,7 +6,7 @@ import Games from './pages/Games';
 import Rentals from './pages/Rentals';
 
 import NavBar from './components/NavBar';
-import GameForm from './components/GameForm';
+import GameForm from './components/games/GameForm';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import NotFound from './components/NotFound';
@@ -40,7 +40,12 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Navigate to={'/games'} />} />
-          <Route path="/customers" element={<Customers />} />
+          <Route
+            path="/customers"
+            element={
+              <Customers isLoading={isLoading} setIsLoading={setIsLoading} />
+            }
+          />
           <Route
             path="/games"
             element={

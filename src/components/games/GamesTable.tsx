@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
 
-import Game from '../models/Game';
-import SortCol from '../models/SortCol';
+import Game from '../../models/Game';
+import SortCol from '../../models/SortCol';
 
-import Table from './common/Table';
+import Table from '../common/Table';
 
 interface GamesTableProps {
   games: Game[];

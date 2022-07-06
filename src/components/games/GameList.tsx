@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-import Game from '../models/Game';
-import Genre from '../models/Genre';
-import SortCol from '../models/SortCol';
+import Game from '../../models/Game';
+import Genre from '../../models/Genre';
+import SortCol from '../../models/SortCol';
 
-import Pagination from './common/Pagination';
-import paginate from '../utils/paginate';
+import Pagination from '../common/Pagination';
+import paginate from '../../utils/paginate';
 
-import GenreList from './GenreList';
+import GenreList from '../GenreList';
 import GamesTable from './GamesTable';
-import SearchBar from './SearchBar';
-import AuthService from '../services/AuthService';
+import SearchBar from '../SearchBar';
+import AuthService from '../../services/AuthService';
 
 interface GameListProps {
   games: Game[];
@@ -69,6 +69,8 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
 
   const { totalCount, data: games } = getPagedData();
 
+  const user: any = AuthService.getUser();
+
   if (!totalCount)
     return (
       <div className="row">
@@ -88,8 +90,6 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         </div>
       </div>
     );
-
-  const user: any = AuthService.getUser();
 
   return (
     <div className="row">

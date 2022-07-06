@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import GameList from '../components/GameList';
+import GameList from '../components/games/GameList';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
