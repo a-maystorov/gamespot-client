@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import CustomerList from '../components/CustomerList';
+import CustomerList from '../components/customers/CustomerList';
 import Customer from '../models/Customer';
 import CustomerService from '../services/CustomerService';
 
@@ -22,9 +22,14 @@ function Customers({ isLoading, setIsLoading }: CustomersProps) {
     loadCustomers();
   }, [loadCustomers]);
 
+  const removeCustomer = async (id: string) => {
+    setCustomers(customers.filter((customer) => customer._id !== id));
+    await CustomerService.removeCustomer(id);
+  };
   return (
     <>
-      <CustomerList />
+      {isLoading && <p>Loading...</p>}
+      <CustomerList customers={customers} onRemoveCustomer={removeCustomer} />
     </>
   );
 }

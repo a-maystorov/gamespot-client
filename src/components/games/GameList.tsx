@@ -83,6 +83,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
         </div>
         <div className="col">
           <p>There are currently no games in the database.</p>
+
           <SearchBar
             value={searchQuery}
             onChange={(e) => search(e.target.value)}

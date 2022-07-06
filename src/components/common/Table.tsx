@@ -1,4 +1,5 @@
 import Column from '../../models/Column';
+import Customer from '../../models/Customer';
 import Game from '../../models/Game';
 import SortCol from '../../models/SortCol';
 
@@ -7,7 +8,7 @@ import TableHeader from './TableHeader';
 
 interface TableProps {
   columns: Column[];
-  data: Game[];
+  data: Game[] | Customer[];
   onSort: (sortColumn: SortCol) => void;
   sortColumn: SortCol;
 }

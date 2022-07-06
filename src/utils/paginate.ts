@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import Game from '../models/Game';
 
 export default function paginate(
-  items: Game[] | [],
+  items: any[],
   pageNumber: number,
   pageSize: number
 ) {
