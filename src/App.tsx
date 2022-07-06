@@ -59,7 +59,12 @@ function App() {
             }
           />
           <Route path="/games/:id" element={<GameForm genres={genres} />} />
-          <Route path="/rentals" element={<Rentals />} />
+          <Route
+            path="/rentals"
+            element={
+              <Rentals isLoading={isLoading} setIsLoading={setIsLoading} />
+            }
+          />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/not-found" element={<NotFound />} />

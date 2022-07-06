@@ -1,6 +1,11 @@
-import RentalList from '../components/RentalList';
+import RentalList from '../components/rentals/RentalList';
 
-function Rentals() {
+interface RentalsProps {
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Rentals({ isLoading, setIsLoading }: RentalsProps) {
   return (
     <>
       <RentalList />

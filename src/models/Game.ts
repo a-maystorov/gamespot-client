@@ -5,6 +5,7 @@ export default interface Game {
   title: string;
   genre?: Genre;
   genreId?: string;
+  gameId?: string;
   numberInStock: number | string;
   dailyRentalRate: number | string;
   __v?: number;
