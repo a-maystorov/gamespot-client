@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Customer from '../../models/Customer';
 import SortCol from '../../models/SortCol';
-import AuthService from '../../services/AuthService';
 import Table from '../common/Table';
 
 interface CustomersTableProps {
@@ -17,35 +16,28 @@ function CustomersTable({
   onSort,
   sortColumn,
 }: CustomersTableProps) {
-  const user: any = AuthService.getUser();
-
   const columns = [
     {
       path: 'name',
       label: 'Name',
       content: (customer: any) => (
-        <Link to={user ? `/customers/${customer._id}` : '/login'}>
-          {customer.name}
-        </Link>
+        <Link to={`/customers/${customer._id}`}>{customer.name}</Link>
       ),
     },
     { path: 'phone', label: 'Phone Number' },
+    {
+      path: '',
+      label: '',
+      key: 'delete',
+      content: (game: any) => (
+        <button
+          className="btn btn-danger btn-sm rounded-pill"
+          onClick={() => onRemoveCustomer(game._id)}>
+          Delete
+        </button>
+      ),
+    },
   ];
-
-  const deleteColumn = {
-    path: '',
-    label: '',
-    key: 'delete',
-    content: (game: any) => (
-      <button
-        className="btn btn-danger btn-sm rounded-pill"
-        onClick={() => onRemoveCustomer(game._id)}>
-        Delete
-      </button>
-    ),
-  };
-
-  if (user && user.isAdmin) columns.push(deleteColumn);
 
   return (
     <Table

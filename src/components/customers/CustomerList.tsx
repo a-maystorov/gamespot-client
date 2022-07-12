@@ -5,8 +5,6 @@ import _ from 'lodash';
 import Customer from '../../models/Customer';
 import SortCol from '../../models/SortCol';
 
-import AuthService from '../../services/AuthService';
-
 import paginate from '../../utils/paginate';
 import Pagination from '../common/Pagination';
 
@@ -60,8 +58,6 @@ function CustomerList({
 
   const { data: customers, totalCount } = getPagedData();
 
-  const user: any = AuthService.getUser();
-
   if (!totalCount)
     return (
       <div className="col-8">
@@ -75,11 +71,9 @@ function CustomerList({
 
   return (
     <div className="col-8">
-      {user && (
-        <Link to="/customers/new" className="btn btn-primary rounded-pill mb-3">
-          Add Customer
-        </Link>
-      )}
+      <Link to="/customers/new" className="btn btn-primary rounded-pill mb-3">
+        Add Customer
+      </Link>
 
       <p>Showing {totalCount} customers in the database.</p>
 

@@ -12,7 +12,7 @@ function NavBar() {
         </NavLink>
         <ul className="navbar-nav me-auto">
           <li>
-            <NavLink className="nav-link" to="/customers">
+            <NavLink className="nav-link" to={user ? '/customers' : '/login'}>
               Customers
             </NavLink>
           </li>
