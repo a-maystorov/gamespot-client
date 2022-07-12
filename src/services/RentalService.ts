@@ -1,8 +1,6 @@
 import axios from 'axios';
 import AuthService from './AuthService';
 import Rental from '../models/Rental';
-import Game from '../models/Game';
-import Customer from '../models/Customer';
 
 const token = AuthService.getToken();
 
@@ -25,7 +23,7 @@ class RentalService {
     return res.data;
   }
 
-  async addRental({ _id: gameId }: Game, { _id: customerId }: Customer) {
+  async addRental(gameId: string, customerId: string) {
     const res = await this.http.post<Rental>(
       '/rentals',
       { gameId, customerId },

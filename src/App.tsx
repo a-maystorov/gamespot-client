@@ -17,6 +17,7 @@ import Genre from './models/Genre';
 
 import './App.css';
 import CustomerForm from './components/customers/CustomerForm';
+import RentalForm from './components/rentals/RentalForm';
 
 function App() {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -65,6 +66,7 @@ function App() {
               <Rentals isLoading={isLoading} setIsLoading={setIsLoading} />
             }
           />
+          <Route path="/rentals/:id" element={<RentalForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/not-found" element={<NotFound />} />

@@ -36,9 +36,7 @@ function RentalsTable({
     {
       path: 'dateOut',
       label: 'Date Out',
-      content: (rental: any) => (
-        <td>{new Date(rental.dateOut).toDateString()}</td>
-      ),
+      content: (rental: any) => <>{new Date(rental.dateOut).toDateString()}</>,
     },
     {
       path: '',

@@ -36,6 +36,7 @@ function GameForm({ genres }: GameFormProps) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<Game>();
+  const [error, setError] = useState('');
 
   const loadCurrentGame = useCallback(async () => {
     if (id === 'new') return;
@@ -69,11 +70,11 @@ function GameForm({ genres }: GameFormProps) {
           numberInStock: game ? game.numberInStock : '',
           dailyRentalRate: game ? game.dailyRentalRate : '',
         }}
-        onSubmit={async (data, { setSubmitting, setFieldError }) => {
+        onSubmit={async (data, { setSubmitting }) => {
+          const { dailyRentalRate, genreId, numberInStock, title } = data;
           setSubmitting(true);
-          try {
-            const { dailyRentalRate, genreId, numberInStock, title } = data;
 
+          try {
             if (id === 'new')
               await GameService.addGame({
                 title,
@@ -93,13 +94,13 @@ function GameForm({ genres }: GameFormProps) {
                   id!
                 ));
 
-            setSubmitting(false);
+            window.location.href = '/rentals';
 
-            window.location.href = '/';
-          } catch (err) {
-            if (err instanceof AxiosError)
-              setFieldError('dailyRentalRate', err.response?.data);
             setSubmitting(false);
+          } catch (err) {
+            if (err instanceof AxiosError) setError(err.response?.data);
+            setSubmitting(false);
+            console.error(err);
           }
         }}
         validationSchema={validationSchema}
@@ -116,7 +117,6 @@ function GameForm({ genres }: GameFormProps) {
             />
 
             <Select
-              errors={values.genreId}
               label="Genre"
               placeholder={game && game.genre?.name}
               name="genreId"
@@ -142,6 +142,12 @@ function GameForm({ genres }: GameFormProps) {
               value={values.dailyRentalRate}
               errors={errors.dailyRentalRate}
             />
+
+            {error && (
+              <div className="form-control alert-danger rounded-pill mt-3">
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"
