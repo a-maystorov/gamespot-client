@@ -37,16 +37,14 @@ function RentalsTable({
       path: 'customer.name',
       label: 'Customer Name',
       content: (rental: any) => (
-        <Link to={`/customers/${rental.customer._id}`}>
-          {rental.customer.name}
-        </Link>
+        <Link to={`/returns/${rental._id}`}>{rental.customer.name}</Link>
       ),
     },
     {
       path: 'game.title',
       label: 'Game Title',
       content: (rental: any) => (
-        <Link to={`/games/${rental.game._id}`}>{rental.game.title}</Link>
+        <Link to={`/returns/${rental._id}`}>{rental.game.title}</Link>
       ),
     },
     {
