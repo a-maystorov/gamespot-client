@@ -94,7 +94,7 @@ function GameForm({ genres }: GameFormProps) {
                   id!
                 ));
 
-            window.location.href = '/rentals';
+            window.location.href = '/';
 
             setSubmitting(false);
           } catch (err) {

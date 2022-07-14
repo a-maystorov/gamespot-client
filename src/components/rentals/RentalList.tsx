@@ -13,15 +13,20 @@ import RentalsTable from './RentalsTable';
 
 interface RentalsListProps {
   rentals: Rental[];
-  onRemoveRental: (id: string, gameId: string, customerId: string) => void;
+  onReturnRental: (gameId: string, customerId: string) => Promise<void>;
+  returnedRental?: Rental;
 }
 
 const pageSize = 3;
 
-function RentalList({ rentals: allRentals, onRemoveRental }: RentalsListProps) {
+function RentalList({
+  rentals: allRentals,
+  returnedRental,
+  onReturnRental,
+}: RentalsListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortCol>({
-    path: 'customer',
+    path: 'customer.name',
     order: 'asc',
   });
 
@@ -65,7 +70,12 @@ function RentalList({ rentals: allRentals, onRemoveRental }: RentalsListProps) {
   if (!totalCount)
     return (
       <div className="col-8">
+        <Link to="/rentals/new" className="btn btn-primary rounded-pill mb-3">
+          Add Rental
+        </Link>
+
         <p>There are currently no rentals in the database.</p>
+
         <SearchBar
           value={searchQuery}
           onChange={(e) => search(e.target.value)}
@@ -84,10 +94,11 @@ function RentalList({ rentals: allRentals, onRemoveRental }: RentalsListProps) {
       <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
 
       <RentalsTable
-        onRemoveRental={onRemoveRental}
         onSort={sort}
         sortColumn={sortColumn}
         rentals={rentals}
+        onReturnRental={onReturnRental}
+        returnedRental={returnedRental}
       />
 
       <Pagination

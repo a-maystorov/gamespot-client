@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import AuthService from './AuthService';
+
 import Rental from '../models/Rental';
 
 const token = AuthService.getToken();

@@ -13,6 +13,7 @@ interface RentalsProps {
 
 function Rentals({ isLoading, setIsLoading }: RentalsProps) {
   const [rentals, setRentals] = useState<Rental[]>([]);
+  const [returnedRental, setReturnedRental] = useState<Rental>();
 
   const loadRentals = useCallback(async () => {
     setIsLoading(true);
@@ -25,19 +26,18 @@ function Rentals({ isLoading, setIsLoading }: RentalsProps) {
     loadRentals();
   }, [loadRentals]);
 
-  const removeRental = async (
-    id: string,
-    gameId: string,
-    customerId: string
-  ) => {
-    setRentals(rentals.filter((rental) => rental._id !== id));
-    await RentalService.returnRental(gameId, customerId);
-    await RentalService.removeRental(id);
+  const returnRental = async (gameId: string, customerId: string) => {
+    const returnedRental = await RentalService.returnRental(gameId, customerId);
+    setReturnedRental(returnedRental);
   };
 
   return (
     <>
-      <RentalList onRemoveRental={removeRental} rentals={rentals} />
+      <RentalList
+        rentals={rentals}
+        onReturnRental={returnRental}
+        returnedRental={returnedRental}
+      />
     </>
   );
 }
