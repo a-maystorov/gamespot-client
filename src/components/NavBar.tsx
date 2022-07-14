@@ -22,7 +22,7 @@ function NavBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink className="nav-link" to="/rentals">
+            <NavLink className="nav-link" to={user ? '/rentals' : '/login'}>
               Rentals
             </NavLink>
           </li>
