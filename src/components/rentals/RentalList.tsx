@@ -69,7 +69,7 @@ function RentalList({
 
   if (!totalCount)
     return (
-      <div className="col-8">
+      <div className="col-8 align-self-center">
         <Link to="/rentals/new" className="btn btn-primary rounded-pill mb-3">
           Add Rental
         </Link>
@@ -84,7 +84,7 @@ function RentalList({
     );
 
   return (
-    <div className="col-8">
+    <div className="col-8 align-self-center">
       <Link to="/rentals/new" className="btn btn-primary rounded-pill mb-3">
         Add Rental
       </Link>

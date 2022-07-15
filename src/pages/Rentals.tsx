@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import LoadingSpinner from '../components/LoadingSpinner';
 import RentalList from '../components/rentals/RentalList';
 
 import Rental from '../models/Rental';
@@ -32,13 +33,15 @@ function Rentals({ isLoading, setIsLoading }: RentalsProps) {
   };
 
   return (
-    <>
+    <div className="d-flex flex-column">
+      {isLoading && <LoadingSpinner />}
+
       <RentalList
         rentals={rentals}
         onReturnRental={returnRental}
         returnedRental={returnedRental}
       />
-    </>
+    </div>
   );
 }
 

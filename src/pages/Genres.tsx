@@ -1,5 +1,8 @@
 import GenreList from '../components/genres/GenreList';
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import Genre from '../models/Genre';
+
 import GenreService from '../services/GenreService';
 
 interface GenresProps {
@@ -13,10 +16,10 @@ function Genres({ genres, isLoading }: GenresProps) {
   };
 
   return (
-    <>
-      {isLoading && <p>Loading...</p>}
+    <div className="d-flex flex-column">
+      {isLoading && <LoadingSpinner />}
       <GenreList genres={genres} onRemoveGenre={removeGenre} />
-    </>
+    </div>
   );
 }
 

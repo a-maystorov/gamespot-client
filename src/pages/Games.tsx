@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import GameList from '../components/games/GameList';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 import Game from '../models/Game';
 import Genre from '../models/Genre';
+
 import GameService from '../services/GameService';
 
 interface GamesProps {
@@ -31,10 +34,10 @@ function Games({ genres, isLoading, setIsLoading }: GamesProps) {
   };
 
   return (
-    <>
-      {isLoading && <p>Loading...</p>}
+    <div className="d-flex flex-column">
+      {isLoading && <LoadingSpinner />}
       <GameList games={games} onRemoveGame={removeGame} genres={genres} />
-    </>
+    </div>
   );
 }
 

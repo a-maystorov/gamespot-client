@@ -60,7 +60,7 @@ function CustomerList({
 
   if (!totalCount)
     return (
-      <div className="col-8">
+      <div className="col-8 align-self-center">
         <p>There are currently no customers in the database.</p>
         <SearchBar
           value={searchQuery}
@@ -70,7 +70,7 @@ function CustomerList({
     );
 
   return (
-    <div className="col-8">
+    <div className="col-8 align-self-center">
       <Link to="/customers/new" className="btn btn-primary rounded-pill mb-3">
         Add Customer
       </Link>

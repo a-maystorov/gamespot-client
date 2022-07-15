@@ -1,69 +1,69 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 import { NavLink } from 'react-router-dom';
+
 import AuthService from '../services/AuthService';
 
 function NavBar() {
   const user: any = AuthService.getUser();
 
   return (
-    <nav className="navbar navbar-expand-lg bg-dark mb-5">
-      <div className="container-fluid">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="mb-5">
+      <Container>
         <NavLink to="/" className="navbar-brand">
           GameSpot
         </NavLink>
-        <ul className="navbar-nav me-auto">
-          <li>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
             <NavLink className="nav-link" to={user ? '/customers' : '/login'}>
               Customers
             </NavLink>
-          </li>
-          <li>
             <NavLink className="nav-link" to="/games">
               Games
             </NavLink>
-          </li>
-          <li>
             <NavLink className="nav-link" to={user ? '/rentals' : '/login'}>
               Rentals
             </NavLink>
-          </li>
-          <li>
             <NavLink className="nav-link" to="/genres">
               Genres
             </NavLink>
-          </li>
-          {!user && (
-            <>
-              <li>
+          </Nav>
+          <Nav>
+            {!user && (
+              <>
                 <NavLink className="nav-link" to="/login">
                   Login
                 </NavLink>
-              </li>
-              <li>
                 <NavLink className="nav-link" to="/register">
                   Register
                 </NavLink>
-              </li>
-            </>
-          )}
-          {user && (
-            <>
-              <li>
+              </>
+            )}
+            {user && (
+              <>
                 <NavLink className="nav-link" to="/me">
                   Hello, {user.name}
                 </NavLink>
-              </li>
-              <li>
+
                 <button
-                  className="btn btn-secondary rounded-pill"
+                  className="btn btn-secondary rounded-pill mx-3"
                   onClick={() => AuthService.logout()}>
                   Logout
                 </button>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

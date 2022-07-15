@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import CustomerList from '../components/customers/CustomerList';
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import Customer from '../models/Customer';
+
 import CustomerService from '../services/CustomerService';
 
 interface CustomersProps {
@@ -28,10 +32,10 @@ function Customers({ isLoading, setIsLoading }: CustomersProps) {
   };
 
   return (
-    <>
-      {isLoading && <p>Loading...</p>}
+    <div className="d-flex flex-column">
+      {isLoading && <LoadingSpinner />}
       <CustomerList customers={customers} onRemoveCustomer={removeCustomer} />
-    </>
+    </div>
   );
 }
 

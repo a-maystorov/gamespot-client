@@ -58,7 +58,7 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
 
   if (!totalCount)
     return (
-      <div className="col-8">
+      <div className="col-8 align-self-center">
         <p>There are currently no genres in the database.</p>
         <SearchBar
           value={searchQuery}
@@ -70,7 +70,7 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
   const user: any = AuthService.getUser();
 
   return (
-    <div className="col-8">
+    <div className="col-8 align-self-center">
       {user && (
         <Link to="/genres/new" className="btn btn-primary rounded-pill mb-3">
           Add Genre
