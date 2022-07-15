@@ -9,7 +9,7 @@ import SortCol from '../../models/SortCol';
 import Pagination from '../common/Pagination';
 import paginate from '../../utils/paginate';
 
-import GenreList from '../GenreList';
+import GenreList from '../genres/GenreGroupList';
 import GamesTable from './GamesTable';
 import SearchBar from '../SearchBar';
 import AuthService from '../../services/AuthService';

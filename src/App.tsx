@@ -19,6 +19,8 @@ import './App.css';
 import CustomerForm from './components/customers/CustomerForm';
 import RentalForm from './components/rentals/RentalForm';
 import Returns from './pages/Returns';
+import Genres from './pages/Genres';
+import GenreForm from './components/genres/GenreForm';
 
 function App() {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -69,6 +71,11 @@ function App() {
           />
           <Route path="/rentals/:id" element={<RentalForm />} />
           <Route path="/returns/:id" element={<Returns />} />
+          <Route
+            path="/genres"
+            element={<Genres genres={genres} isLoading={isLoading} />}
+          />
+          <Route path="/genres/:id" element={<GenreForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/not-found" element={<NotFound />} />

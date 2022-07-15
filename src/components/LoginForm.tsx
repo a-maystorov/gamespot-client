@@ -21,8 +21,8 @@ function LoginForm() {
           setSubmitting(true);
           try {
             await AuthService.login(data.email, data.password);
-            setSubmitting(false);
             window.location.href = '/';
+            setSubmitting(false);
           } catch (err) {
             if (err instanceof AxiosError)
               setFieldError('email', err.response?.data);

@@ -1,6 +1,7 @@
 import Column from '../../models/Column';
 import Customer from '../../models/Customer';
 import Game from '../../models/Game';
+import Genre from '../../models/Genre';
 import Rental from '../../models/Rental';
 import SortCol from '../../models/SortCol';
 
@@ -9,7 +10,7 @@ import TableHeader from './TableHeader';
 
 interface TableProps {
   columns: Column[];
-  data: Game[] | Customer[] | Rental[];
+  data: Game[] | Customer[] | Rental[] | Genre[];
   onSort: (sortColumn: SortCol) => void;
   sortColumn: SortCol;
 }

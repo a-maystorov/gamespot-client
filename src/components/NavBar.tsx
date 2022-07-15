@@ -26,6 +26,11 @@ function NavBar() {
               Rentals
             </NavLink>
           </li>
+          <li>
+            <NavLink className="nav-link" to="/genres">
+              Genres
+            </NavLink>
+          </li>
           {!user && (
             <>
               <li>
