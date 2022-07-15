@@ -41,7 +41,7 @@ function GamesTable({
     key: 'delete',
     content: (game: any) => (
       <button
-        className="btn btn-danger btn-sm rounded-pill"
+        className="btn btn-danger btn-sm rounded-pill justify-content-center"
         onClick={() => onRemoveGame(game._id)}>
         Delete
       </button>

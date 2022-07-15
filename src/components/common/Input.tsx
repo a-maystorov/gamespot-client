@@ -15,12 +15,7 @@ function Input({ label, name, errors, ...rest }: InputProps) {
       <label htmlFor={name} className="mt-3">
         {label}
       </label>
-      <input
-        name={name}
-        id={name}
-        className="form-control rounded-pill"
-        {...rest}
-      />
+      <input name={name} id={name} className="form-control" {...rest} />
       {errors && (
         <div className="form-control alert-danger rounded-pill mt-3">
           {errors}

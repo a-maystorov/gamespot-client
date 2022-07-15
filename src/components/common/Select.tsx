@@ -1,3 +1,5 @@
+import Form from 'react-bootstrap/Form';
+
 interface SelectProps {
   name: string;
   label: string;
@@ -19,10 +21,10 @@ const Select = ({
     <div className="form-group mt-3">
       <label htmlFor={name}>{label}</label>
 
-      <select
+      <Form.Select
         name={name}
         id={name}
-        className="form-control rounded-pill"
+        className="form-control "
         onChange={onChange}
         {...rest}>
         <option value="" label={placeholder} />
@@ -35,7 +37,7 @@ const Select = ({
               </option>
             )
         )}
-      </select>
+      </Form.Select>
     </div>
   );
 };

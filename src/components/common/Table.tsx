@@ -14,9 +14,10 @@ interface TableProps {
   onSort: (sortColumn: SortCol) => void;
   sortColumn: SortCol;
 }
+
 function Table({ columns, data, onSort, sortColumn }: TableProps) {
   return (
-    <table className="table">
+    <table className="table table-striped table-bordered">
       <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
       <TableBody data={data} columns={columns} />
     </table>

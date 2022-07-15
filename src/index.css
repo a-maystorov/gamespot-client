@@ -37,3 +37,7 @@ a {
 .nav-link {
   color: #fff;
 }
+
+.table td:last-child {
+  text-align: center;
+}
