@@ -26,8 +26,8 @@ function RegisterForm() {
               email: data.email,
               password: data.password,
             });
-            setSubmitting(false);
             window.location.href = '/';
+            setSubmitting(false);
           } catch (err) {
             console.error(err);
             if (err instanceof AxiosError)

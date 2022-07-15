@@ -65,9 +65,9 @@ function CustomerForm() {
               customer &&
                 (await CustomerService.updateCustomer({ name, phone }, id!));
 
-            setSubmitting(false);
-
             window.location.href = '/customers';
+
+            setSubmitting(false);
           } catch (err) {
             if (err instanceof AxiosError)
               setFieldError('phone', err.response?.data);
