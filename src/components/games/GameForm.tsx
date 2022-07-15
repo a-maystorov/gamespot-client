@@ -61,7 +61,6 @@ function GameForm({ genres }: GameFormProps) {
 
   return (
     <div>
-      <h1>Game Form {id}</h1>
       <Formik
         enableReinitialize={true}
         initialValues={{
@@ -107,57 +106,60 @@ function GameForm({ genres }: GameFormProps) {
         validateOnChange={false}>
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
-            <Input
-              label="Title"
-              name="title"
-              type="text"
-              onChange={handleChange}
-              value={values.title}
-              errors={errors.title}
-            />
+            <div className="form-container">
+              <h1>Game Form</h1>
 
-            <Select
-              label="Genre"
-              placeholder={game && game.genre?.name}
-              name="genreId"
-              onChange={handleChange}
-              options={genres}
-              value={values.genreId || game?.genre?._id}
-            />
+              <Input
+                label="Title"
+                name="title"
+                type="text"
+                onChange={handleChange}
+                value={values.title}
+                errors={errors.title}
+              />
 
-            <Input
-              label="Stock"
-              name="numberInStock"
-              type="number"
-              onChange={handleChange}
-              value={values.numberInStock}
-              errors={errors.numberInStock}
-            />
+              <Select
+                label="Genre"
+                placeholder={game && game.genre?.name}
+                name="genreId"
+                onChange={handleChange}
+                options={genres}
+                value={values.genreId || game?.genre?._id}
+              />
 
-            <Input
-              label="Rate"
-              name="dailyRentalRate"
-              type="number"
-              onChange={handleChange}
-              value={values.dailyRentalRate}
-              errors={errors.dailyRentalRate}
-            />
+              <Input
+                label="Stock"
+                name="numberInStock"
+                type="number"
+                onChange={handleChange}
+                value={values.numberInStock}
+                errors={errors.numberInStock}
+              />
 
-            {error && (
-              <div className="form-control alert-danger rounded-pill mt-3">
-                {error}
+              <Input
+                label="Rate"
+                name="dailyRentalRate"
+                type="number"
+                onChange={handleChange}
+                value={values.dailyRentalRate}
+                errors={errors.dailyRentalRate}
+              />
+
+              {error && (
+                <div className="form-control alert-danger rounded-pill mt-3">
+                  {error}
+                </div>
+              )}
+
+              <div className="submit-btn--container">
+                <button
+                  type="submit"
+                  className="btn btn-primary rounded-pill mt-3 submit-btn"
+                  disabled={isSubmitting}>
+                  Save
+                </button>
               </div>
-            )}
-
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill mt-3"
-              disabled={isSubmitting}>
-              Save
-            </button>
-
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-            <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+            </div>
           </Form>
         )}
       </Formik>

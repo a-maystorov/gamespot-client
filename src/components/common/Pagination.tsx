@@ -20,7 +20,7 @@ function Pagination({
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul className="pagination justify-content-center">
         {pages.map((page: number) => (
           <li
             key={page}

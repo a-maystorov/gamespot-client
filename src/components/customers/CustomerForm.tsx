@@ -44,7 +44,6 @@ function CustomerForm() {
 
   return (
     <div>
-      <h1>Customer Form {id}</h1>
       <Formik
         enableReinitialize={true}
         initialValues={{
@@ -78,33 +77,36 @@ function CustomerForm() {
         validateOnChange={false}>
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
-            <Input
-              label="Name"
-              name="name"
-              type="text"
-              onChange={handleChange}
-              value={values.name}
-              errors={errors.name}
-            />
+            <div className="form-container">
+              <h1>Customer Form</h1>
 
-            <Input
-              label="Phone Number"
-              name="phone"
-              type="text"
-              onChange={handleChange}
-              value={values.phone}
-              errors={errors.phone}
-            />
+              <Input
+                label="Name"
+                name="name"
+                type="text"
+                onChange={handleChange}
+                value={values.name}
+                errors={errors.name}
+              />
 
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill mt-3"
-              disabled={isSubmitting}>
-              Save
-            </button>
+              <Input
+                label="Phone Number"
+                name="phone"
+                type="text"
+                onChange={handleChange}
+                value={values.phone}
+                errors={errors.phone}
+              />
 
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-            <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+              <div className="submit-btn--container">
+                <button
+                  type="submit"
+                  className="btn btn-primary rounded-pill mt-3 submit-btn"
+                  disabled={isSubmitting}>
+                  Save
+                </button>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

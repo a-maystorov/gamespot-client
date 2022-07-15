@@ -40,7 +40,6 @@ function RentalForm() {
 
   return (
     <div>
-      <h1>Rental Form</h1>
       <Formik
         initialValues={{
           customerId: '',
@@ -64,34 +63,40 @@ function RentalForm() {
         validateOnChange={false}>
         {({ values, handleChange, isSubmitting }) => (
           <Form>
-            <Select
-              label="Customer"
-              name="customerId"
-              onChange={handleChange}
-              options={customers}
-              value={values.customerId}
-            />
+            <div className="form-container">
+              <h1>Rental Form</h1>
 
-            <Select
-              label="Game"
-              name="gameId"
-              onChange={handleChange}
-              options={games}
-              value={values.gameId}
-            />
+              <Select
+                label="Customer"
+                name="customerId"
+                onChange={handleChange}
+                options={customers}
+                value={values.customerId}
+              />
 
-            {error && (
-              <div className="form-control alert-danger rounded-pill mt-3">
-                {error}
+              <Select
+                label="Game"
+                name="gameId"
+                onChange={handleChange}
+                options={games}
+                value={values.gameId}
+              />
+
+              {error && (
+                <div className="form-control alert-danger rounded-pill mt-3">
+                  {error}
+                </div>
+              )}
+
+              <div className="submit-btn--container">
+                <button
+                  type="submit"
+                  className="btn btn-primary rounded-pill mt-3 submit-btn"
+                  disabled={isSubmitting}>
+                  Save
+                </button>
               </div>
-            )}
-
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill mt-3"
-              disabled={isSubmitting}>
-              Save
-            </button>
+            </div>
           </Form>
         )}
       </Formik>

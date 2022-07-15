@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 import { NavLink } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ function NavBar() {
   return (
     <Navbar
       collapseOnSelect
-      expand="lg"
+      expand="md"
       bg="dark"
       variant="dark"
       className="mb-5">
@@ -49,15 +50,16 @@ function NavBar() {
             )}
             {user && (
               <>
-                <NavLink className="nav-link" to="/me">
+                <NavLink className="nav-link d-none d-lg-block" to="/me">
                   Hello, {user.name}
                 </NavLink>
 
-                <button
-                  className="btn btn-secondary rounded-pill mx-3"
+                <Button
+                  variant="outline-secondary"
+                  className="rounded-pill btn-logout"
                   onClick={() => AuthService.logout()}>
                   Logout
-                </button>
+                </Button>
               </>
             )}
           </Nav>

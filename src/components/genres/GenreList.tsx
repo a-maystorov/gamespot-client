@@ -70,7 +70,7 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
   const user: any = AuthService.getUser();
 
   return (
-    <div className="col-3 align-self-center">
+    <div className="col-4 align-self-center">
       {user && (
         <Link to="/genres/new" className="btn btn-primary rounded-pill mb-3">
           Add Genre

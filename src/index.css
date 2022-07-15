@@ -25,6 +25,26 @@ a {
   cursor: default;
 }
 
+/* Forms */
+
+.form-container {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.form-container h1 {
+  text-align: center;
+}
+
+.submit-btn--container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn {
+  width: 25%;
+}
+
 /* Bootstrap modifications */
 .page-link:focus {
   box-shadow: none;
@@ -38,6 +58,33 @@ a {
   color: #fff;
 }
 
-.table td:last-child {
-  text-align: center;
+/* Media */
+@media only screen and (max-width: 992px) {
+  .btn-logout {
+    align-self: center;
+    width: 200px;
+  }
+
+  .navbar-nav {
+    align-items: center;
+    /* margin-bottom: 1rem; */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .list-group {
+    margin-bottom: 1rem;
+  }
+
+  .col-2 {
+    width: 40%;
+  }
+
+  .col-8 {
+    width: 100%;
+  }
 }
