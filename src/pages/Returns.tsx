@@ -17,8 +17,6 @@ function Returns() {
     loadCurrentReturn();
   }, [loadCurrentReturn]);
 
-  console.log(currentReturn);
-
   return (
     <Card>
       <Card.Header>Rental with id: {currentReturn?._id}</Card.Header>

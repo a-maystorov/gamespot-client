@@ -50,8 +50,8 @@ function NavBar() {
             )}
             {user && (
               <>
-                <NavLink className="nav-link d-none d-lg-block" to="/me">
-                  Hello, {user.name}
+                <NavLink className="nav-link d-none d-lg-block" to="/">
+                  Current user: {user.name}
                 </NavLink>
 
                 <Button

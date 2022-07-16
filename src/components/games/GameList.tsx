@@ -20,7 +20,7 @@ interface GameListProps {
   genres: Genre[];
 }
 
-const pageSize = 3;
+const pageSize = 4;
 
 function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);

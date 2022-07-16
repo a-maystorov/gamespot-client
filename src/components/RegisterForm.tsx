@@ -15,7 +15,6 @@ const validationSchema = Yup.object({
 function RegisterForm() {
   return (
     <div>
-      <h1>Register</h1>
       <Formik
         initialValues={{ email: '', password: '', name: '' }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
@@ -39,39 +38,45 @@ function RegisterForm() {
         validationSchema={validationSchema}>
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
-            <Input
-              label="Name"
-              name="name"
-              type="text"
-              onChange={handleChange}
-              value={values.name}
-              errors={errors.name}
-            />
+            <div className="form-container">
+              <h1>Register</h1>
 
-            <Input
-              label="Email"
-              name="email"
-              type="email"
-              onChange={handleChange}
-              value={values.email}
-              errors={errors.email}
-            />
+              <Input
+                label="Name"
+                name="name"
+                type="text"
+                onChange={handleChange}
+                value={values.name}
+                errors={errors.name}
+              />
 
-            <Input
-              label="Password"
-              name="password"
-              type="password"
-              onChange={handleChange}
-              value={values.password}
-              errors={errors.password}
-            />
+              <Input
+                label="Email"
+                name="email"
+                type="email"
+                onChange={handleChange}
+                value={values.email}
+                errors={errors.email}
+              />
 
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill my-3"
-              disabled={isSubmitting}>
-              Register
-            </button>
+              <Input
+                label="Password"
+                name="password"
+                type="password"
+                onChange={handleChange}
+                value={values.password}
+                errors={errors.password}
+              />
+
+              <div className="submit-btn--container">
+                <button
+                  type="submit"
+                  className="btn btn-primary rounded-pill my-3 submit-btn"
+                  disabled={isSubmitting}>
+                  Register
+                </button>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

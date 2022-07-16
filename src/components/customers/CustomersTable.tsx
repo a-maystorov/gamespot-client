@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Customer from '../../models/Customer';
 import SortCol from '../../models/SortCol';
+import AuthService from '../../services/AuthService';
 import Table from '../common/Table';
 
 interface CustomersTableProps {
@@ -25,19 +26,24 @@ function CustomersTable({
       ),
     },
     { path: 'phone', label: 'Phone Number' },
-    {
-      path: '',
-      label: '',
-      key: 'delete',
-      content: (game: any) => (
-        <button
-          className="btn btn-danger btn-sm rounded-pill"
-          onClick={() => onRemoveCustomer(game._id)}>
-          Delete
-        </button>
-      ),
-    },
   ];
+
+  const deleteColumn = {
+    path: '',
+    label: '',
+    key: 'delete',
+    content: (game: any) => (
+      <button
+        className="btn btn-danger btn-sm rounded-pill"
+        onClick={() => onRemoveCustomer(game._id)}>
+        Delete
+      </button>
+    ),
+  };
+
+  const user: any = AuthService.getUser();
+
+  if (user && user.isAdmin) columns.push(deleteColumn);
 
   return (
     <Table

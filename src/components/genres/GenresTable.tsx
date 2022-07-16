@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Genre from '../../models/Genre';
 import SortCol from '../../models/SortCol';
+import AuthService from '../../services/AuthService';
 import Table from '../common/Table';
 
 interface GenresTableProps {
@@ -26,19 +27,25 @@ function GenresTable({
         <Link to={`/genres/${genre._id}`}>{genre.name}</Link>
       ),
     },
-    {
-      path: '',
-      label: '',
-      key: 'delete',
-      content: (genre: any) => (
-        <button
-          className="btn btn-danger btn-sm rounded-pill"
-          onClick={() => onRemoveGenre(genre._id)}>
-          Delete
-        </button>
-      ),
-    },
   ];
+
+  const deleteColumn = {
+    path: '',
+    label: '',
+    key: 'delete',
+    content: (genre: any) => (
+      <button
+        className="btn btn-danger btn-sm rounded-pill"
+        onClick={() => onRemoveGenre(genre._id)}>
+        Delete
+      </button>
+    ),
+  };
+
+  const user: any = AuthService.getUser();
+
+  if (user && user.isAdmin) columns.push(deleteColumn);
+
   return (
     <Table
       columns={columns}
