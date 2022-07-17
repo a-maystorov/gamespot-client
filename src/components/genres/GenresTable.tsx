@@ -18,13 +18,14 @@ function GenresTable({
   sortColumn,
 }: GenresTableProps) {
   const filteredGenre = genres.filter((genre) => genre.name !== 'All Genres');
+  const user: any = AuthService.getUser();
 
   const columns = [
     {
       path: 'name',
       label: 'Name',
       content: (genre: any) => (
-        <Link to={`/genres/${genre._id}`}>{genre.name}</Link>
+        <Link to={user ? `/genres/${genre._id}` : '/login'}>{genre.name}</Link>
       ),
     },
   ];
@@ -41,8 +42,6 @@ function GenresTable({
       </button>
     ),
   };
-
-  const user: any = AuthService.getUser();
 
   if (user && user.isAdmin) columns.push(deleteColumn);
 
