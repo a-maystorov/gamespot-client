@@ -18,6 +18,8 @@ My biggest motivation behind every project that I have build is my love for codi
 
 - TypeScript
 
+- CSS
+
 - Bootstrap
 
 - Formik
