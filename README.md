@@ -45,5 +45,5 @@ My biggest motivation behind every project that I have build is my love for codi
 ## Contact
 
 - LinkedIn - [Alkin Maystorov](https://www.linkedin.com/in/alkin-maystorov/)
-- Frontend Mentor - [@a-maystorov](https://www.frontendmentor.io/profile/SirDev97)
+- Frontend Mentor - [@SirDev97](https://www.frontendmentor.io/profile/SirDev97)
 - Website - [alkinmaystorov.com](https://alkinmaystorov.com)
