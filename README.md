@@ -2,6 +2,8 @@
 
 Running a video game rental business made easy.
 
+Check it out here: [GameSpot](https://gamespotz.netlify.app/games)
+
 ## What is GameSpot
 
 GameSpot is a service that allows easy management for games as well as customers and rentals. It lets users add games and customer information to the database for future rental opportunities by submitting a form and eventually processing the return while setting the date out, date returned, and the rental fee.
@@ -30,10 +32,16 @@ My biggest motivation behind every project that I have build is my love for codi
 
   - yup
 
-### Screenshots:
+### Preview:
+
+![ScreenShot_20220718162127](https://user-images.githubusercontent.com/76817540/179537952-14bfb25d-c886-4f22-8119-3d34e09e0a68.jpeg)
+
+![ScreenShot_20220718162047](https://user-images.githubusercontent.com/76817540/179537988-ce2d75fe-43c2-4b46-8b66-2991ce4f4aa6.jpeg)
+
+![ScreenShot_20220718162021](https://user-images.githubusercontent.com/76817540/179537996-73956e0f-ac12-40d1-987d-e140bc519fac.jpeg)
 
 ## Contact
 
 - LinkedIn - [Alkin Maystorov](https://www.linkedin.com/in/alkin-maystorov/)
-- Frontend Mentor - [@a-maystorov](https://www.frontendmentor.io/profile/a-maystorov)
+- Frontend Mentor - [@a-maystorov](https://www.frontendmentor.io/profile/SirDev97)
 - Website - [alkinmaystorov.com](https://alkinmaystorov.com)
