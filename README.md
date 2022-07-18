@@ -6,7 +6,7 @@ Check it out: [GameSpot](https://gamespotz.netlify.app/games)
 
 ## What is GameSpot
 
-GameSpot is a service that allows easy management for games as well as customers and rentals. It lets users add games and customer information to the database for future rental opportunities by submitting a form and eventually processing the return while setting the date out, date returned, and the rental fee.
+GameSpot is a service that allows easy management for games as well as customers and rentals. It lets users add games and customer information to the database for future rental opportunities and eventually processing the return while setting the date out, date returned, and the rental fee.
 
 ### Motivation:
 
