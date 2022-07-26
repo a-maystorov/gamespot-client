@@ -59,7 +59,8 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
   if (!totalCount)
     return (
       <div className="col-8 align-self-center">
-        <p>There are currently no genres in the database.</p>
+        <p>Loading genres from database. Please wait...</p>
+
         <SearchBar
           value={searchQuery}
           onChange={(e) => search(e.target.value)}

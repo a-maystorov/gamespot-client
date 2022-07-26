@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
 
 function LoginForm() {
   return (
-    <div>
+    <div className="d-flex flex-column">
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
@@ -65,6 +65,15 @@ function LoginForm() {
           </Form>
         )}
       </Formik>
+      <button
+        type="submit"
+        className="btn btn-primary rounded-pill my-3  align-self-center"
+        onClick={async () => {
+          await AuthService.login('doglover1@dev.io', '123456');
+          window.location.href = '/';
+        }}>
+        Login as guest
+      </button>
     </div>
   );
 }

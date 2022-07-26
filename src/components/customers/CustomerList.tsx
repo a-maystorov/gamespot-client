@@ -65,7 +65,7 @@ function CustomerList({
           Add Customer
         </Link>
 
-        <p>There are currently no customers in the database.</p>
+        <p>Loading customers from database. Please wait...</p>
 
         <SearchBar
           value={searchQuery}
