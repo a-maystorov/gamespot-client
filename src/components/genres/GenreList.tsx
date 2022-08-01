@@ -59,7 +59,7 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
   if (!totalCount)
     return (
       <div className="col-8 align-self-center">
-        <p>Loading genres from database. Please wait...</p>
+      <p>Showing {totalCount - 1} genres in the database.</p>
 
         <SearchBar
           value={searchQuery}

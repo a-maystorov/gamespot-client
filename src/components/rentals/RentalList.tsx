@@ -74,7 +74,7 @@ function RentalList({
           Add Rental
         </Link>
 
-        <p>Loading rentals from database. Please wait...</p>
+        <p>Showing {totalCount - 1} genres in the database.</p>
 
         <SearchBar
           value={searchQuery}
