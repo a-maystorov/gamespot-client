@@ -82,7 +82,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
           />
         </div>
         <div className="col">
-          <p>Loading games from database. Please wait...</p>
+          <p>Currently showing no games in the database.</p>
 
           <SearchBar
             value={searchQuery}
