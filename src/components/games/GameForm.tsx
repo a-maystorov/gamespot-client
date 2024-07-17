@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
-import GameService from '../../services/GameService';
+import GameService from "../../services/GameService";
 
-import Input from '../common/Input';
-import Select from '../common/Select';
+import Input from "../common/Input";
+import Select from "../common/Select";
 
-import Genre from '../../models/Genre';
-import Game from '../../models/Game';
+import Genre from "../../models/Genre";
+import Game from "../../models/Game";
 
 interface GameFormProps {
   genres: Genre[];
@@ -20,26 +20,18 @@ interface GameFormProps {
 const validationSchema = Yup.object({
   title: Yup.string().min(3).max(50).required(),
   genreId: Yup.string().required(),
-  numberInStock: Yup.number()
-    .required()
-    .min(0)
-    .max(100)
-    .label('Number in Stock'),
-  dailyRentalRate: Yup.number()
-    .required()
-    .min(0)
-    .max(10)
-    .label('Daily Rental Rate'),
+  numberInStock: Yup.number().required().min(0).max(100).label("Number in Stock"),
+  dailyRentalRate: Yup.number().required().min(0).max(10).label("Daily Rental Rate"),
 });
 
 function GameForm({ genres }: GameFormProps) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<Game>();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const loadCurrentGame = useCallback(async () => {
-    if (id === 'new') return;
+    if (id === "new") return;
 
     try {
       const game = await GameService.getGame(id!);
@@ -47,7 +39,7 @@ function GameForm({ genres }: GameFormProps) {
     } catch (err) {
       if (err instanceof AxiosError) {
         err.response && err.response.status === 404
-          ? navigate('/not-found')
+          ? navigate("/not-found")
           : console.error(err.response?.data);
       }
 
@@ -64,17 +56,17 @@ function GameForm({ genres }: GameFormProps) {
       <Formik
         enableReinitialize={true}
         initialValues={{
-          title: game ? game.title : '',
-          genreId: game ? game.genre?._id : '',
-          numberInStock: game ? game.numberInStock : '',
-          dailyRentalRate: game ? game.dailyRentalRate : '',
+          title: game ? game.title : "",
+          genreId: game ? game.genre?._id : "",
+          numberInStock: game ? game.numberInStock : "",
+          dailyRentalRate: game ? game.dailyRentalRate : "",
         }}
         onSubmit={async (data, { setSubmitting }) => {
           const { dailyRentalRate, genreId, numberInStock, title } = data;
           setSubmitting(true);
 
           try {
-            if (id === 'new')
+            if (id === "new")
               await GameService.addGame({
                 title,
                 genreId,
@@ -93,7 +85,7 @@ function GameForm({ genres }: GameFormProps) {
                   id!
                 ));
 
-            window.location.href = '/';
+            window.location.href = "/";
 
             setSubmitting(false);
           } catch (err) {
@@ -103,7 +95,8 @@ function GameForm({ genres }: GameFormProps) {
           }
         }}
         validationSchema={validationSchema}
-        validateOnChange={false}>
+        validateOnChange={false}
+      >
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
             <div className="form-container">
@@ -145,17 +138,14 @@ function GameForm({ genres }: GameFormProps) {
                 errors={errors.dailyRentalRate}
               />
 
-              {error && (
-                <div className="form-control alert-danger rounded-pill mt-3">
-                  {error}
-                </div>
-              )}
+              {error && <div className="form-control alert-danger rounded-pill mt-3">{error}</div>}
 
               <div className="submit-btn--container">
                 <button
                   type="submit"
                   className="btn btn-primary rounded-pill mt-3 submit-btn"
-                  disabled={isSubmitting}>
+                  disabled={isSubmitting}
+                >
                   Save
                 </button>
               </div>

@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import { AxiosError } from 'axios';
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import { AxiosError } from "axios";
 
-import Genre from '../../models/Genre';
+import Genre from "../../models/Genre";
 
-import GenreService from '../../services/GenreService';
+import GenreService from "../../services/GenreService";
 
-import Input from '../common/Input';
+import Input from "../common/Input";
 
 function GenreForm() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ function GenreForm() {
   const [genre, setGenre] = useState<Genre>();
 
   const loadCurrentGenre = useCallback(async () => {
-    if (id === 'new') return;
+    if (id === "new") return;
 
     try {
       const genre = await GenreService.getGenre(id!);
@@ -24,7 +24,7 @@ function GenreForm() {
     } catch (err) {
       if (err instanceof AxiosError) {
         err.response && err.response.status === 404
-          ? navigate('/not-found')
+          ? navigate("/not-found")
           : console.error(err.response?.data);
       }
 
@@ -45,30 +45,30 @@ function GenreForm() {
       <Formik
         enableReinitialize={true}
         initialValues={{
-          name: genre ? genre.name : '',
+          name: genre ? genre.name : "",
         }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
           try {
             const { name } = data;
 
-            if (id === 'new')
+            if (id === "new")
               await GenreService.addGenre({
                 name,
               });
             else genre && (await GenreService.updateGenre({ name }, id!));
 
-            window.location.href = '/genres';
+            window.location.href = "/genres";
 
             setSubmitting(false);
           } catch (err) {
-            if (err instanceof AxiosError)
-              setFieldError('phone', err.response?.data);
+            if (err instanceof AxiosError) setFieldError("phone", err.response?.data);
             setSubmitting(false);
           }
         }}
         validationSchema={validationSchema}
-        validateOnChange={false}>
+        validateOnChange={false}
+      >
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
             <div className="form-container">
@@ -87,7 +87,8 @@ function GenreForm() {
                 <button
                   type="submit"
                   className="btn btn-primary rounded-pill mt-3 submit-btn"
-                  disabled={isSubmitting}>
+                  disabled={isSubmitting}
+                >
                   Save
                 </button>
               </div>

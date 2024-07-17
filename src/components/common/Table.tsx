@@ -1,12 +1,12 @@
-import Column from '../../models/Column';
-import Customer from '../../models/Customer';
-import Game from '../../models/Game';
-import Genre from '../../models/Genre';
-import Rental from '../../models/Rental';
-import SortCol from '../../models/SortCol';
+import Column from "../../models/Column";
+import Customer from "../../models/Customer";
+import Game from "../../models/Game";
+import Genre from "../../models/Genre";
+import Rental from "../../models/Rental";
+import SortCol from "../../models/SortCol";
 
-import TableBody from './TableBody';
-import TableHeader from './TableHeader';
+import TableBody from "./TableBody";
+import TableHeader from "./TableHeader";
 
 interface TableProps {
   columns: Column[];

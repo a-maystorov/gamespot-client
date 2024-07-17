@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 interface PaginationProps {
   itemsCount: number;
@@ -7,12 +7,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-function Pagination({
-  itemsCount,
-  pageSize,
-  currentPage,
-  onPageChange,
-}: PaginationProps) {
+function Pagination({ itemsCount, pageSize, currentPage, onPageChange }: PaginationProps) {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   const pages = _.range(1, pagesCount + 1);
 
@@ -22,9 +17,7 @@ function Pagination({
     <nav>
       <ul className="pagination justify-content-center">
         {pages.map((page: number) => (
-          <li
-            key={page}
-            className={page === currentPage ? 'page-item active' : 'page-item'}>
+          <li key={page} className={page === currentPage ? "page-item active" : "page-item"}>
             <button className="page-link" onClick={() => onPageChange(page)}>
               {page}
             </button>

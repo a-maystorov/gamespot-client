@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import Genre from '../../models/Genre';
-import SortCol from '../../models/SortCol';
-import AuthService from '../../services/AuthService';
-import Table from '../common/Table';
+import { Link } from "react-router-dom";
+import Genre from "../../models/Genre";
+import SortCol from "../../models/SortCol";
+import AuthService from "../../services/AuthService";
+import Table from "../common/Table";
 
 interface GenresTableProps {
   genres: Genre[];
@@ -11,33 +11,29 @@ interface GenresTableProps {
   sortColumn: SortCol;
 }
 
-function GenresTable({
-  genres,
-  onRemoveGenre,
-  onSort,
-  sortColumn,
-}: GenresTableProps) {
-  const filteredGenre = genres.filter((genre) => genre.name !== 'All Genres');
+function GenresTable({ genres, onRemoveGenre, onSort, sortColumn }: GenresTableProps) {
+  const filteredGenre = genres.filter((genre) => genre.name !== "All Genres");
   const user: any = AuthService.getUser();
 
   const columns = [
     {
-      path: 'name',
-      label: 'Name',
+      path: "name",
+      label: "Name",
       content: (genre: any) => (
-        <Link to={user ? `/genres/${genre._id}` : '/login'}>{genre.name}</Link>
+        <Link to={user ? `/genres/${genre._id}` : "/login"}>{genre.name}</Link>
       ),
     },
   ];
 
   const deleteColumn = {
-    path: '',
-    label: '',
-    key: 'delete',
+    path: "",
+    label: "",
+    key: "delete",
     content: (genre: any) => (
       <button
         className="btn btn-danger btn-sm rounded-pill"
-        onClick={() => onRemoveGenre(genre._id)}>
+        onClick={() => onRemoveGenre(genre._id)}
+      >
         Delete
       </button>
     ),
@@ -45,14 +41,7 @@ function GenresTable({
 
   if (user && user.isAdmin) columns.push(deleteColumn);
 
-  return (
-    <Table
-      columns={columns}
-      data={filteredGenre}
-      onSort={onSort}
-      sortColumn={sortColumn}
-    />
-  );
+  return <Table columns={columns} data={filteredGenre} onSort={onSort} sortColumn={sortColumn} />;
 }
 
 export default GenresTable;

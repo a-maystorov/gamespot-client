@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-import GameList from '../components/games/GameList';
-import LoadingSpinner from '../components/LoadingSpinner';
+import GameList from "../components/games/GameList";
+import LoadingSpinner from "../components/LoadingSpinner";
 
-import Game from '../models/Game';
-import Genre from '../models/Genre';
+import Game from "../models/Game";
+import Genre from "../models/Genre";
 
-import GameService from '../services/GameService';
+import GameService from "../services/GameService";
 
 interface GamesProps {
   genres: Genre[];

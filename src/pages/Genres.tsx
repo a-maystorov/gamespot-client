@@ -1,9 +1,9 @@
-import GenreList from '../components/genres/GenreList';
-import LoadingSpinner from '../components/LoadingSpinner';
+import GenreList from "../components/genres/GenreList";
+import LoadingSpinner from "../components/LoadingSpinner";
 
-import Genre from '../models/Genre';
+import Genre from "../models/Genre";
 
-import GenreService from '../services/GenreService';
+import GenreService from "../services/GenreService";
 
 interface GenresProps {
   isLoading: boolean;

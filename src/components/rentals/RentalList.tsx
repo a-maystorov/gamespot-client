@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import _ from "lodash";
+import { Link } from "react-router-dom";
 
-import Rental from '../../models/Rental';
-import SortCol from '../../models/SortCol';
+import Rental from "../../models/Rental";
+import SortCol from "../../models/SortCol";
 
-import paginate from '../../utils/paginate';
-import Pagination from '../common/Pagination';
+import paginate from "../../utils/paginate";
+import Pagination from "../common/Pagination";
 
-import SearchBar from '../SearchBar';
-import RentalsTable from './RentalsTable';
+import SearchBar from "../SearchBar";
+import RentalsTable from "./RentalsTable";
 
 interface RentalsListProps {
   rentals: Rental[];
@@ -19,18 +19,14 @@ interface RentalsListProps {
 
 const pageSize = 3;
 
-function RentalList({
-  rentals: allRentals,
-  returnedRental,
-  onReturnRental,
-}: RentalsListProps) {
+function RentalList({ rentals: allRentals, returnedRental, onReturnRental }: RentalsListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortCol>({
-    path: 'customer.name',
-    order: 'asc',
+    path: "customer.name",
+    order: "asc",
   });
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const search = (query: string) => {
     setSearchQuery(query);
@@ -45,20 +41,12 @@ function RentalList({
     const filteredRentals = searchQuery
       ? allRentals.filter(
           (rental) =>
-            rental.customer.name
-              .toLowerCase()
-              .startsWith(searchQuery.toLowerCase()) ||
-            rental.game.title
-              .toLowerCase()
-              .startsWith(searchQuery.toLowerCase())
+            rental.customer.name.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
+            rental.game.title.toLowerCase().startsWith(searchQuery.toLowerCase())
         )
       : allRentals;
 
-    const sortedRentals = _.orderBy(
-      filteredRentals,
-      [sortColumn.path],
-      [sortColumn.order]
-    );
+    const sortedRentals = _.orderBy(filteredRentals, [sortColumn.path], [sortColumn.order]);
 
     const rentals = paginate(sortedRentals, currentPage, pageSize);
 
@@ -74,12 +62,9 @@ function RentalList({
           Add Rental
         </Link>
 
-        <p>Showing {totalCount - 1} genres in the database.</p>
+        <p>Showing {totalCount} rentals in the database.</p>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => search(e.target.value)}
-        />
+        <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
       </div>
     );
 

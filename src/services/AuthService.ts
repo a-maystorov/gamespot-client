@@ -1,15 +1,15 @@
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+import axios from "axios";
+import jwtDecode from "jwt-decode";
 
-const key = 'authToken';
+const key = "authToken";
 
 class AuthService {
   http = axios.create({
-    baseURL: 'https://gamespot-api.herokuapp.com/api',
+    baseURL: "https://gamespot-api.onrender.com/api",
   });
 
   async login(email: string, password: string) {
-    const { data: jwt } = await this.http.post('/auth', { email, password });
+    const { data: jwt } = await this.http.post("/auth", { email, password });
     localStorage.setItem(key, jwt);
     return jwt;
   }
@@ -20,14 +20,14 @@ class AuthService {
 
   logout() {
     localStorage.removeItem(key);
-    window.location.href = '/';
+    window.location.href = "/";
   }
 
   getToken() {
     try {
       return localStorage.getItem(key);
     } catch (err) {
-      console.log('Error getting the auth token: ', err);
+      console.log("Error getting the auth token: ", err);
     }
   }
 
@@ -38,7 +38,7 @@ class AuthService {
 
   setJwt(jwt: string) {
     if (axios.defaults?.headers && axios.defaults.headers.common) {
-      axios.defaults.headers.common['x-auth-token'] = jwt;
+      axios.defaults.headers.common["x-auth-token"] = jwt;
     }
   }
 }

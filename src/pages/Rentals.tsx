@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-import LoadingSpinner from '../components/LoadingSpinner';
-import RentalList from '../components/rentals/RentalList';
+import LoadingSpinner from "../components/LoadingSpinner";
+import RentalList from "../components/rentals/RentalList";
 
-import Rental from '../models/Rental';
+import Rental from "../models/Rental";
 
-import RentalService from '../services/RentalService';
+import RentalService from "../services/RentalService";
 
 interface RentalsProps {
   isLoading: boolean;
@@ -36,11 +36,7 @@ function Rentals({ isLoading, setIsLoading }: RentalsProps) {
     <div className="d-flex flex-column">
       {isLoading && <LoadingSpinner />}
 
-      <RentalList
-        rentals={rentals}
-        onReturnRental={returnRental}
-        returnedRental={returnedRental}
-      />
+      <RentalList rentals={rentals} onReturnRental={returnRental} returnedRental={returnedRental} />
     </div>
   );
 }

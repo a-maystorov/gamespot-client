@@ -1,5 +1,5 @@
-import Customer from './Customer';
-import Game from './Game';
+import Customer from "./Customer";
+import Game from "./Game";
 
 export default interface Rental {
   _id: string;

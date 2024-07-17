@@ -1,4 +1,4 @@
-import Genre from './Genre';
+import Genre from "./Genre";
 
 export default interface Game {
   _id?: string;

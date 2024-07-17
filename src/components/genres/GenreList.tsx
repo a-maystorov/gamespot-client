@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import _ from 'lodash';
+import { useState } from "react";
+import _ from "lodash";
 
-import Genre from '../../models/Genre';
-import SortCol from '../../models/SortCol';
+import Genre from "../../models/Genre";
+import SortCol from "../../models/SortCol";
 
-import paginate from '../../utils/paginate';
-import Pagination from '../common/Pagination';
+import paginate from "../../utils/paginate";
+import Pagination from "../common/Pagination";
 
-import SearchBar from '../SearchBar';
-import GenresTable from './GenresTable';
-import AuthService from '../../services/AuthService';
-import { Link } from 'react-router-dom';
+import SearchBar from "../SearchBar";
+import GenresTable from "./GenresTable";
+import AuthService from "../../services/AuthService";
+import { Link } from "react-router-dom";
 
 const pageSize = 4;
 
@@ -22,10 +22,10 @@ interface GenreListProps {
 function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortCol>({
-    path: 'name',
-    order: 'asc',
+    path: "name",
+    order: "asc",
   });
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const search = (query: string) => {
     setSearchQuery(query);
@@ -38,16 +38,10 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
 
   const getPagedData = () => {
     const filteredGenres = searchQuery
-      ? allGenres.filter((genre) =>
-          genre.name.toLowerCase().startsWith(searchQuery.toLowerCase())
-        )
+      ? allGenres.filter((genre) => genre.name.toLowerCase().startsWith(searchQuery.toLowerCase()))
       : allGenres;
 
-    const sortedGenres = _.orderBy(
-      filteredGenres,
-      [sortColumn.path],
-      [sortColumn.order]
-    );
+    const sortedGenres = _.orderBy(filteredGenres, [sortColumn.path], [sortColumn.order]);
 
     const genres = paginate(sortedGenres, currentPage, pageSize);
 
@@ -61,10 +55,7 @@ function GenreList({ genres: allGenres, onRemoveGenre }: GenreListProps) {
       <div className="col-8 align-self-center">
         <p>Currently no genres in the database</p>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => search(e.target.value)}
-        />
+        <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
       </div>
     );
 

@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
-import Game from '../../models/Game';
-import Genre from '../../models/Genre';
-import SortCol from '../../models/SortCol';
+import Game from "../../models/Game";
+import Genre from "../../models/Genre";
+import SortCol from "../../models/SortCol";
 
-import Pagination from '../common/Pagination';
-import paginate from '../../utils/paginate';
+import Pagination from "../common/Pagination";
+import paginate from "../../utils/paginate";
 
-import GenreList from '../genres/GenreGroupList';
-import GamesTable from './GamesTable';
-import SearchBar from '../SearchBar';
-import AuthService from '../../services/AuthService';
+import GenreList from "../genres/GenreGroupList";
+import GamesTable from "./GamesTable";
+import SearchBar from "../SearchBar";
+import AuthService from "../../services/AuthService";
 
 interface GameListProps {
   games: Game[];
@@ -26,10 +26,10 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>();
   const [sortColumn, setSortColumn] = useState<SortCol>({
-    path: 'title',
-    order: 'asc',
+    path: "title",
+    order: "asc",
   });
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const search = (query: string) => {
     setSearchQuery(query);
@@ -51,16 +51,10 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
       selectedGenre && selectedGenre._id
         ? allGames.filter((game) => game.genre!._id === selectedGenre?._id)
         : searchQuery
-        ? allGames.filter((game) =>
-            game.title.toLowerCase().startsWith(searchQuery.toLowerCase())
-          )
+        ? allGames.filter((game) => game.title.toLowerCase().startsWith(searchQuery.toLowerCase()))
         : allGames;
 
-    const sortedGames = _.orderBy(
-      filteredGames,
-      [sortColumn.path],
-      [sortColumn.order]
-    );
+    const sortedGames = _.orderBy(filteredGames, [sortColumn.path], [sortColumn.order]);
 
     const games = paginate(sortedGames, currentPage, pageSize);
 
@@ -75,19 +69,12 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
     return (
       <div className="row">
         <div className="col-2">
-          <GenreList
-            genres={genres}
-            onGenreSelect={selectGenre}
-            selectedGenre={selectedGenre!}
-          />
+          <GenreList genres={genres} onGenreSelect={selectGenre} selectedGenre={selectedGenre!} />
         </div>
         <div className="col">
           <p>Currently showing no games in the database.</p>
 
-          <SearchBar
-            value={searchQuery}
-            onChange={(e) => search(e.target.value)}
-          />
+          <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
         </div>
       </div>
     );
@@ -95,11 +82,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
   return (
     <div className="row">
       <div className="col-2">
-        <GenreList
-          genres={genres}
-          onGenreSelect={selectGenre}
-          selectedGenre={selectedGenre!}
-        />
+        <GenreList genres={genres} onGenreSelect={selectGenre} selectedGenre={selectedGenre!} />
       </div>
       <div className="col">
         {user && (
@@ -110,10 +93,7 @@ function GameList({ games: allGames, onRemoveGame, genres }: GameListProps) {
 
         <p>Showing {totalCount} games in the database.</p>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => search(e.target.value)}
-        />
+        <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
 
         <GamesTable
           games={games}

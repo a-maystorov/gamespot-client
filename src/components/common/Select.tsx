@@ -1,4 +1,4 @@
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 interface SelectProps {
   name: string;
@@ -8,25 +8,12 @@ interface SelectProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: any;
 }
-const Select = ({
-  name,
-  label,
-  options,
-  onChange,
-  value,
-  placeholder,
-  ...rest
-}: SelectProps) => {
+const Select = ({ name, label, options, onChange, value, placeholder, ...rest }: SelectProps) => {
   return (
     <div className="form-group mt-3">
       <label htmlFor={name}>{label}</label>
 
-      <Form.Select
-        name={name}
-        id={name}
-        className="form-control "
-        onChange={onChange}
-        {...rest}>
+      <Form.Select name={name} id={name} className="form-control " onChange={onChange} {...rest}>
         <option value="" label={placeholder} />
 
         {options.map(

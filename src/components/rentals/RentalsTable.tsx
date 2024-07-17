@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import Rental from '../../models/Rental';
-import SortCol from '../../models/SortCol';
+import Rental from "../../models/Rental";
+import SortCol from "../../models/SortCol";
 
-import Table from '../common/Table';
+import Table from "../common/Table";
 
-import ReturnModal from './ReturnModal';
+import ReturnModal from "./ReturnModal";
 
 interface RentalsTableProps {
   rentals: Rental[];
@@ -28,34 +28,30 @@ function RentalsTable({
 
   const closeModal = () => {
     setIsModalShowing(false);
-    navigate('/');
+    navigate("/");
   };
   const showModal = () => setIsModalShowing(true);
 
   const columns = [
     {
-      path: 'customer.name',
-      label: 'Customer Name',
-      content: (rental: any) => (
-        <Link to={`/returns/${rental._id}`}>{rental.customer.name}</Link>
-      ),
+      path: "customer.name",
+      label: "Customer Name",
+      content: (rental: any) => <Link to={`/returns/${rental._id}`}>{rental.customer.name}</Link>,
     },
     {
-      path: 'game.title',
-      label: 'Game Title',
-      content: (rental: any) => (
-        <Link to={`/returns/${rental._id}`}>{rental.game.title}</Link>
-      ),
+      path: "game.title",
+      label: "Game Title",
+      content: (rental: any) => <Link to={`/returns/${rental._id}`}>{rental.game.title}</Link>,
     },
     {
-      path: 'dateOut',
-      label: 'Date Out',
+      path: "dateOut",
+      label: "Date Out",
       content: (rental: any) => <>{new Date(rental.dateOut).toDateString()}</>,
     },
     {
-      path: '',
-      label: '',
-      key: 'return',
+      path: "",
+      label: "",
+      key: "return",
       content: (rental: any) =>
         !rental.dateReturned ? (
           <button
@@ -63,7 +59,8 @@ function RentalsTable({
             onClick={async () => {
               showModal();
               onReturnRental(rental.game._id, rental.customer._id);
-            }}>
+            }}
+          >
             Return
           </button>
         ) : (
@@ -76,12 +73,7 @@ function RentalsTable({
 
   return (
     <>
-      <Table
-        columns={columns}
-        data={rentals}
-        onSort={onSort}
-        sortColumn={sortColumn}
-      />
+      <Table columns={columns} data={rentals} onSort={onSort} sortColumn={sortColumn} />
 
       {returnedRental && (
         <ReturnModal

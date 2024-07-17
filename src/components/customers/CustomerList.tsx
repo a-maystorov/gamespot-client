@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
-import Customer from '../../models/Customer';
-import SortCol from '../../models/SortCol';
+import Customer from "../../models/Customer";
+import SortCol from "../../models/SortCol";
 
-import paginate from '../../utils/paginate';
-import Pagination from '../common/Pagination';
+import paginate from "../../utils/paginate";
+import Pagination from "../common/Pagination";
 
-import SearchBar from '../SearchBar';
-import CustomersTable from './CustomersTable';
+import SearchBar from "../SearchBar";
+import CustomersTable from "./CustomersTable";
 
 interface CustomersListProps {
   customers: Customer[];
@@ -18,16 +18,13 @@ interface CustomersListProps {
 
 const pageSize = 3;
 
-function CustomerList({
-  customers: allCustomers,
-  onRemoveCustomer,
-}: CustomersListProps) {
+function CustomerList({ customers: allCustomers, onRemoveCustomer }: CustomersListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortCol>({
-    path: 'name',
-    order: 'asc',
+    path: "name",
+    order: "asc",
   });
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const search = (query: string) => {
     setSearchQuery(query);
@@ -45,11 +42,7 @@ function CustomerList({
         )
       : allCustomers;
 
-    const sortedCustomers = _.orderBy(
-      filteredCustomers,
-      [sortColumn.path],
-      [sortColumn.order]
-    );
+    const sortedCustomers = _.orderBy(filteredCustomers, [sortColumn.path], [sortColumn.order]);
 
     const customers = paginate(sortedCustomers, currentPage, pageSize);
 
@@ -67,10 +60,7 @@ function CustomerList({
 
         <p>Showing {totalCount} customers in the database.</p>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => search(e.target.value)}
-        />
+        <SearchBar value={searchQuery} onChange={(e) => search(e.target.value)} />
       </div>
     );
 

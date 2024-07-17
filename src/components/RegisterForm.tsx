@@ -1,10 +1,10 @@
-import { AxiosError } from 'axios';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { AxiosError } from "axios";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import UserService from '../services/UserService';
+import UserService from "../services/UserService";
 
-import Input from './common/Input';
+import Input from "./common/Input";
 
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(50).required(),
@@ -16,7 +16,7 @@ function RegisterForm() {
   return (
     <div>
       <Formik
-        initialValues={{ email: '', password: '', name: '' }}
+        initialValues={{ email: "", password: "", name: "" }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
           try {
@@ -25,17 +25,17 @@ function RegisterForm() {
               email: data.email,
               password: data.password,
             });
-            window.location.href = '/';
+            window.location.href = "/";
             setSubmitting(false);
           } catch (err) {
             console.error(err);
-            if (err instanceof AxiosError)
-              setFieldError('email', err.response?.data);
+            if (err instanceof AxiosError) setFieldError("email", err.response?.data);
             setSubmitting(false);
           }
         }}
         validateOnChange={false}
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema}
+      >
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
             <div className="form-container">
@@ -72,7 +72,8 @@ function RegisterForm() {
                 <button
                   type="submit"
                   className="btn btn-primary rounded-pill my-3 submit-btn"
-                  disabled={isSubmitting}>
+                  disabled={isSubmitting}
+                >
                   Register
                 </button>
               </div>

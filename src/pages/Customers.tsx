@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-import CustomerList from '../components/customers/CustomerList';
-import LoadingSpinner from '../components/LoadingSpinner';
+import CustomerList from "../components/customers/CustomerList";
+import LoadingSpinner from "../components/LoadingSpinner";
 
-import Customer from '../models/Customer';
+import Customer from "../models/Customer";
 
-import CustomerService from '../services/CustomerService';
+import CustomerService from "../services/CustomerService";
 
 interface CustomersProps {
   isLoading: boolean;

@@ -1,4 +1,4 @@
-import Genre from '../../models/Genre';
+import Genre from "../../models/Genre";
 
 interface GenreListProps {
   genres: Genre[];
@@ -14,10 +14,11 @@ function GenreList({ genres, onGenreSelect, selectedGenre }: GenreListProps) {
           key={genre._id}
           className={
             genre === selectedGenre
-              ? 'list-group-item clickable active'
-              : 'list-group-item clickable'
+              ? "list-group-item clickable active"
+              : "list-group-item clickable"
           }
-          onClick={() => onGenreSelect(genre)}>
+          onClick={() => onGenreSelect(genre)}
+        >
           {genre.name}
         </li>
       ))}

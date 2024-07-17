@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import Column from '../../models/Column';
-import Customer from '../../models/Customer';
-import Game from '../../models/Game';
-import Rental from '../../models/Rental';
+import _ from "lodash";
+import Column from "../../models/Column";
+import Customer from "../../models/Customer";
+import Game from "../../models/Game";
+import Rental from "../../models/Rental";
 
 interface TableBodyProps {
   data: any[];

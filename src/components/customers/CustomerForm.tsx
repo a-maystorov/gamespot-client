@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import { AxiosError } from 'axios';
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import { AxiosError } from "axios";
 
-import Customer from '../../models/Customer';
+import Customer from "../../models/Customer";
 
-import CustomerService from '../../services/CustomerService';
+import CustomerService from "../../services/CustomerService";
 
-import Input from '../common/Input';
+import Input from "../common/Input";
 
 function CustomerForm() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ function CustomerForm() {
   const [customer, setCustomer] = useState<Customer>();
 
   const loadCurrentCustomer = useCallback(async () => {
-    if (id === 'new') return;
+    if (id === "new") return;
 
     try {
       const customer = await CustomerService.getCustomer(id!);
@@ -24,7 +24,7 @@ function CustomerForm() {
     } catch (err) {
       if (err instanceof AxiosError) {
         err.response && err.response.status === 404
-          ? navigate('/not-found')
+          ? navigate("/not-found")
           : console.error(err.response?.data);
       }
 
@@ -47,34 +47,32 @@ function CustomerForm() {
       <Formik
         enableReinitialize={true}
         initialValues={{
-          name: customer ? customer.name : '',
-          phone: customer ? customer.phone : '',
+          name: customer ? customer.name : "",
+          phone: customer ? customer.phone : "",
         }}
         onSubmit={async (data, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
           try {
             const { name, phone } = data;
 
-            if (id === 'new')
+            if (id === "new")
               await CustomerService.addCustomer({
                 name,
                 phone,
               });
-            else
-              customer &&
-                (await CustomerService.updateCustomer({ name, phone }, id!));
+            else customer && (await CustomerService.updateCustomer({ name, phone }, id!));
 
-            window.location.href = '/customers';
+            window.location.href = "/customers";
 
             setSubmitting(false);
           } catch (err) {
-            if (err instanceof AxiosError)
-              setFieldError('phone', err.response?.data);
+            if (err instanceof AxiosError) setFieldError("phone", err.response?.data);
             setSubmitting(false);
           }
         }}
         validationSchema={validationSchema}
-        validateOnChange={false}>
+        validateOnChange={false}
+      >
         {({ values, handleChange, isSubmitting, errors }) => (
           <Form>
             <div className="form-container">
@@ -102,7 +100,8 @@ function CustomerForm() {
                 <button
                   type="submit"
                   className="btn btn-primary rounded-pill mt-3 submit-btn"
-                  disabled={isSubmitting}>
+                  disabled={isSubmitting}
+                >
                   Save
                 </button>
               </div>

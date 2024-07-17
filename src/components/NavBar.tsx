@@ -1,22 +1,17 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
-import AuthService from '../services/AuthService';
+import AuthService from "../services/AuthService";
 
 function NavBar() {
   const user: any = AuthService.getUser();
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="md"
-      bg="dark"
-      variant="dark"
-      className="mb-5">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="mb-5">
       <Container>
         <NavLink to="/" className="navbar-brand">
           GameSpot
@@ -24,13 +19,13 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavLink className="nav-link" to={user ? '/customers' : '/login'}>
+            <NavLink className="nav-link" to={user ? "/customers" : "/login"}>
               Customers
             </NavLink>
             <NavLink className="nav-link" to="/games">
               Games
             </NavLink>
-            <NavLink className="nav-link" to={user ? '/rentals' : '/login'}>
+            <NavLink className="nav-link" to={user ? "/rentals" : "/login"}>
               Rentals
             </NavLink>
             <NavLink className="nav-link" to="/genres">
@@ -57,7 +52,8 @@ function NavBar() {
                 <Button
                   variant="outline-secondary"
                   className="rounded-pill btn-logout"
-                  onClick={() => AuthService.logout()}>
+                  onClick={() => AuthService.logout()}
+                >
                   Logout
                 </Button>
               </>

@@ -2,7 +2,7 @@
 
 Running a video game rental business made easy.
 
-Check it out: [GameSpot](https://gamespotz.netlify.app/games)
+Check it out: [gamespot](https://gamespotz.netlify.app/games)
 
 ## What is GameSpot
 
